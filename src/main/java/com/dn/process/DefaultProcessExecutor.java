@@ -27,7 +27,7 @@ public class DefaultProcessExecutor {
             try {
                 result = item.process(context);
 //                if (result == null || !result.isSuccess() || ServiceResultCodeEnum.IDEMPOTENT.getCode().equals(result.getCode())) {
-//                    return result;
+                    return result;
 //                }
             } catch (Throwable e) {
                 throw e;

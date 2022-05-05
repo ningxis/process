@@ -18,7 +18,6 @@ public class PostProcess implements Process {
         if(context.getAge()>100){
             return new ServiceResult(ServiceExceptionEnum.INIT.getMsg(),ServiceExceptionEnum.INIT.getCode());
         }
-        System.out.println("后置校验成功");
         return ServiceResult.toSuccessResult();
     }
 }
