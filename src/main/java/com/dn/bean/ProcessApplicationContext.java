@@ -12,13 +12,15 @@ import java.util.Map;
 @Data
 public class ProcessApplicationContext {
 
+    //todo:dingning 2022/5/5 22:54  属性必须包装类
+
     private String userName;
 
-    private int age;
+    private Integer age;
 
-    private int userId;
+    private Integer userId;
 
-
+//todo:dingning 2022/5/5 22:55  可以用object
     private Map<String, Map<String, String>> items;
 
 

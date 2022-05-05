@@ -24,6 +24,7 @@ public class DefaultProcessExecutor {
     public ServiceResult execute(ProcessApplicationContext context) {
         ServiceResult result = ServiceResult.toSuccessResult();
         for (Process item : list) {
+            //todo:dingning 2022/5/5 22:34  健壮性、异常处理、全局处理
             try {
                 result = item.process(context);
 //                if (result == null || !result.isSuccess() || ServiceResultCodeEnum.IDEMPOTENT.getCode().equals(result.getCode())) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class ActivityInitProcess implements Process {
     @Override
     public ServiceResult process(ProcessApplicationContext context) {
+        //todo:dingning 2022/5/5 22:37
         if (context == null || context.getItems() == null || context.getUserId() == 0) {
             return new ServiceResult(ServiceExceptionEnum.INIT.getMsg(), ServiceExceptionEnum.INIT.getCode());
         }
