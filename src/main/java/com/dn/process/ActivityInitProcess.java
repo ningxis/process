@@ -20,7 +20,7 @@ public class ActivityInitProcess implements Process {
         int userId = 111;
         if(userId==context.getUserId()){
             System.out.println("缓存命中用户");
-            return new ServiceResult(ServiceExceptionEnum.INIT.getMsg(), ServiceExceptionEnum.INIT.getCode());
+            return new ServiceResult(ServiceExceptionEnum.CACHED.getMsg(), ServiceExceptionEnum.CACHED.getCode());
         }
         //流程处理成功，打印信息
         System.out.println("流程处理成功："+context);
