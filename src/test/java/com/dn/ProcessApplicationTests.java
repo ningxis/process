@@ -19,6 +19,7 @@ class ProcessApplicationTests {
         context.setAge(9);
         context.setUserName("长安");
         context.setUserId(11);
+
         ServiceResult result = activityService.activityTrigger(context);
         System.out.println(result);
     }
