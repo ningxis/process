@@ -2,6 +2,8 @@ package com.dn.bean;
 
 import lombok.Data;
 
+import java.util.Map;
+
 /**
  * @author dingning
  * @date 2022/5/5 17:23
@@ -15,6 +17,9 @@ public class ProcessApplicationContext {
     private int age;
 
     private int userId;
+
+
+    private Map<String, Map<String, String>> items;
 
 
 }

@@ -15,7 +15,8 @@ public class DefaultValidatorProcess implements ValidatorProcess{
     public ServiceResult process(ProcessApplicationContext context) {
         if("".equals(context.getUserName())){
             return new ServiceResult(ServiceExceptionEnum.VALIDATOR.getMsg(),ServiceExceptionEnum.VALIDATOR.getCode());
-        }
+        };
+        System.out.println("基础校验成功");
         return ServiceResult.toSuccessResult();
     }
 }
