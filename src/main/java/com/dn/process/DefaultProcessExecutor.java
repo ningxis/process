@@ -31,7 +31,9 @@ public class DefaultProcessExecutor {
 //                    return result;
 //                }
             } catch (Throwable e) {
-                throw e;
+                System.out.println("异常信息打印"+e.getMessage());
+                //异常处理
+
             }
         }
         return result;
