@@ -30,7 +30,8 @@ public class DefaultProcessExecutor {
 //                if (result == null || !result.isSuccess() || ServiceResultCodeEnum.IDEMPOTENT.getCode().equals(result.getCode())) {
 //                    return result;
 //                }
-            } catch (Throwable e) {
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 System.out.println("异常信息打印"+e.getMessage());
                 //异常处理
 

@@ -2,6 +2,8 @@ package com.dn.algorithm.leetcode;
 
 import com.dn.bean.Node;
 
+import java.util.LinkedList;
+
 /**
  * @author dingning
  * @version 1.0
@@ -11,10 +13,10 @@ import com.dn.bean.Node;
 public class FirstWeek {
 
     public static void main(String[] args) {
-//        printNode(test01());
+        printNode(test01());
 //        printNode(test02());
 //        printNode(test03());
-        printNode(test04());
+//        printNode(test04());
     }
 
     //反转链表
@@ -34,7 +36,7 @@ public class FirstWeek {
             //首先断开节点引用
             prev.next = pCur.next;
             //反转节点引用
-            pCur.next = dummy.next;
+            pCur.next = prev;
             dummy.next = pCur;
             pCur = prev.next;
         }
@@ -103,6 +105,39 @@ public class FirstWeek {
         tansferNode(node3,node4);
         tansferNode(node4,node5);
         return node1;
+    }
+
+
+    public static void test05(){
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        Node binaryTree = createBinaryTree(list);
+
+    }
+
+    /**
+     * 构建二叉树
+     * @param list   输入序列
+     * @return
+     */
+    public static Node createBinaryTree(LinkedList<Integer> list){
+        Node node = null;
+        if(list == null || list.isEmpty()){
+            return null;
+        }
+        Integer data = list.removeFirst();
+        if(data!=null){
+            node = new Node(data);
+            node.pre = createBinaryTree(list);
+            node.next = createBinaryTree(list);
+        }
+        return node;
     }
 
     public static void tansferNode(Node node1,Node node2){
