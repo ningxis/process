@@ -9,19 +9,19 @@ import lombok.Data;
 * @version 1.0
 */
 @Data
-public class Node<E> {
+public class ListNode<E> {
 
-    public Node<E> next;
+    public ListNode<E> next;
     public E value;
-    public Node<E> pre;
+    public ListNode<E> pre;
 
-    public Node(Node<E> pre,E value,Node<E> next){
+    public ListNode(ListNode<E> pre, E value, ListNode<E> next){
         pre.next = next;
         next.pre = pre;
         this.value = value;
     }
 
-    public Node(E value){
+    public ListNode(E value){
         this.value = value;
     }
 
