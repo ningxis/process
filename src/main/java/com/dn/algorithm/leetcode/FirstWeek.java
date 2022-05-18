@@ -3,6 +3,7 @@ package com.dn.algorithm.leetcode;
 import com.dn.bean.ListNode;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * @author dingning
@@ -12,6 +13,24 @@ import java.util.LinkedList;
  */
 public class FirstWeek {
 
+    public  static void postOrder2(ListNode root){
+        Stack<ListNode> s1 = new Stack<>();
+        Stack<ListNode> s2 = new Stack<>();
+        s1.push(root);
+        while(!s1.isEmpty()){
+            root = s1.pop();
+            s2.push(root);
+            if(root.pre!=null){
+                s1.push(root.pre);
+            }
+            if(root.next!=null){
+                s1.push(root.next);
+            }
+        }
+        while(!s2.isEmpty()){
+            System.out.print(s2.pop().value+" ");
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -21,11 +40,75 @@ public class FirstWeek {
 //        printNode(test04());
 //        printNode(test05(test04()));
 //        printNode(test04());
-        printNode(test07(init()));
+//        printNode(test07(init()));
+
+        test09();
+    }
+
+    public static void printByStack(ListNode root){
+        Stack<ListNode> stack = new Stack<>();
+        ListNode node = root;
+        while(node != null || !stack.isEmpty()){
+            while(node != null){
+
+                stack.push(node);
+                node = node.pre;
+            }
+            if(!stack.isEmpty()){
+                node = stack.pop();
+                System.out.print(node.getValue());
+                node = node.next;
+            }
+        }
+
+
+    }
+
+    public static void test08(){
+        int[] datas = {1,2,3,4,5,6,7,8,9,10,16,29};
+        BinaryTree biTree = BinaryTree.createBiTree(datas);
+        BinaryTree.print(biTree.getRoot());
+    }
+
+    public static void test09() {
+        ListNode root = new ListNode("A");
+        root.pre = new ListNode("B");
+        root.next = new ListNode("C");
+        root.pre.pre = new ListNode("D");
+        root.pre.next = new ListNode("E");
+        root.next.pre = new ListNode("F");
+        printByStack(root);
+        System.out.println();
+        test10(root);
+        System.out.println();
+        test11(root);
+        System.out.println();
+        test12(root);
+    }
+
+    public static void test10(ListNode node){
+        if(node == null) return;
+        System.out.print(node.getValue());
+        test10(node.pre);
+        test10(node.next);
+    }
+
+    public static void test11(ListNode node){
+        if(node == null) return;
+        test11(node.pre);
+        System.out.print(node.getValue());
+        test11(node.next);
+    }
+
+    public static void test12(ListNode node){
+        if(node == null) return;
+        test12(node.pre);
+        test12(node.next);
+        System.out.print(node.getValue());
     }
 
 
-    public static ListNode init(){
+    public static ListNode init() {
         ListNode listNode = new ListNode(1);
         listNode.next = new ListNode(2);
         listNode.next.next = new ListNode(3);
@@ -114,17 +197,17 @@ public class FirstWeek {
     }
 
     //递归实现反转链表
-    public static ListNode test07(ListNode head){
-            if(head.next == null){
-                return head;
-            }
-            ListNode last = test07(head.next);
-            head.next.next = head;
-            head.next = null;
-            return last;
+    public static ListNode test07(ListNode head) {
+        if (head.next == null) {
+            return head;
+        }
+        ListNode last = test07(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
     }
 
-    public static ListNode test04(){
+    public static ListNode test04() {
         ListNode listNode1 = new ListNode("1");
         ListNode listNode2 = new ListNode("2");
         ListNode listNode3 = new ListNode("3");
@@ -138,7 +221,7 @@ public class FirstWeek {
     }
 
 
-    public static void test06(){
+    public static void test06() {
         LinkedList<Integer> list = new LinkedList<>();
         list.add(1);
         list.add(2);
@@ -148,21 +231,34 @@ public class FirstWeek {
         list.add(6);
         list.add(7);
         ListNode binaryTree = createBinaryTree(list);
+        printTreeNode(binaryTree);
 
+    }
+
+    public static void printTreeNode(ListNode root) {
+        if (root == null) return;
+        System.out.println(root.getValue());
+        if (root.getPre() != null) {
+            printNode(root.getPre());
+        }
+        if (root.getNext() != null) {
+            printNode(root.getNext());
+        }
     }
 
     /**
      * 构建二叉树
-     * @param list   输入序列
+     *
+     * @param list 输入序列
      * @return
      */
-    public static ListNode createBinaryTree(LinkedList<Integer> list){
+    public static ListNode createBinaryTree(LinkedList<Integer> list) {
         ListNode listNode = null;
-        if(list == null || list.isEmpty()){
+        if (list == null || list.isEmpty()) {
             return null;
         }
         Integer data = list.removeFirst();
-        if(data!=null){
+        if (data != null) {
             listNode = new ListNode(data);
             listNode.pre = createBinaryTree(list);
             listNode.next = createBinaryTree(list);
@@ -171,15 +267,15 @@ public class FirstWeek {
     }
 
 
-    public static ListNode test05(ListNode head){
-            if (head.next == null) return head;
-            ListNode last = test05(head.next);
+    public static ListNode test05(ListNode head) {
+        if (head.next == null) return head;
+        ListNode last = test05(head.next);
 //            head.next.next = head;
 //            head.next = null;
-            return last;
+        return last;
     }
 
-    public static void tansferNode(ListNode listNode1, ListNode listNode2){
+    public static void tansferNode(ListNode listNode1, ListNode listNode2) {
         listNode1.next = listNode2;
         listNode2.pre = listNode1;
     }
