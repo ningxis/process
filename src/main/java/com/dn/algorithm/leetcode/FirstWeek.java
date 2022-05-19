@@ -2,6 +2,7 @@ package com.dn.algorithm.leetcode;
 
 import com.dn.bean.ListNode;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -13,22 +14,23 @@ import java.util.Stack;
  */
 public class FirstWeek {
 
-    public  static void postOrder2(ListNode root){
+
+    public static void postOrder2(ListNode root) {
         Stack<ListNode> s1 = new Stack<>();
         Stack<ListNode> s2 = new Stack<>();
         s1.push(root);
-        while(!s1.isEmpty()){
+        while (!s1.isEmpty()) {
             root = s1.pop();
             s2.push(root);
-            if(root.pre!=null){
+            if (root.pre != null) {
                 s1.push(root.pre);
             }
-            if(root.next!=null){
+            if (root.next != null) {
                 s1.push(root.next);
             }
         }
-        while(!s2.isEmpty()){
-            System.out.print(s2.pop().value+" ");
+        while (!s2.isEmpty()) {
+            System.out.print(s2.pop().value + " ");
         }
     }
 
@@ -41,31 +43,70 @@ public class FirstWeek {
 //        printNode(test05(test04()));
 //        printNode(test04());
 //        printNode(test07(init()));
+//        test09();
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(test19(i));;
+        }
+        System.out.println(test18(10));
+        System.out.println(test17(10));;
 
-        test09();
     }
 
-    public static void printByStack(ListNode root){
+    //斐波那契数列，递推写法
+    public static int test19(int n) {
+        if (n <= 2) {
+            return 1;
+        }
+        int tmp = 1, post = 1, last = 1;
+        for (int i = 2; i < n; i++) {
+            tmp = post + last;
+            last = post;
+            post = tmp;
+        }
+        return tmp;
+    }
+
+    //斐波那契数列，数组写法
+    public static int test18(int n) {
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        int[] ints = new int[n];
+        ints[0] = ints[1] = 1;
+        for (int i = 2; i < n; i++) {
+            ints[i] = ints[i - 1] + ints[i - 2];
+        }
+        System.out.println(Arrays.toString(ints));
+        return ints[n - 1];
+    }
+
+
+    //斐波那契数列,递归写法
+    public static int test17(int number) {
+        if (number == 1 || number == 2) {
+            return 1;
+        }
+        return test17(number - 1) + test17(number - 2);
+    }
+
+    public static void printByStack(ListNode root) {
         Stack<ListNode> stack = new Stack<>();
         ListNode node = root;
-        while(node != null || !stack.isEmpty()){
-            while(node != null){
-
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
                 stack.push(node);
                 node = node.pre;
             }
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 node = stack.pop();
                 System.out.print(node.getValue());
                 node = node.next;
             }
         }
-
-
     }
 
-    public static void test08(){
-        int[] datas = {1,2,3,4,5,6,7,8,9,10,16,29};
+    public static void test08() {
+        int[] datas = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 29};
         BinaryTree biTree = BinaryTree.createBiTree(datas);
         BinaryTree.print(biTree.getRoot());
     }
@@ -86,22 +127,22 @@ public class FirstWeek {
         test12(root);
     }
 
-    public static void test10(ListNode node){
-        if(node == null) return;
+    public static void test10(ListNode node) {
+        if (node == null) return;
         System.out.print(node.getValue());
         test10(node.pre);
         test10(node.next);
     }
 
-    public static void test11(ListNode node){
-        if(node == null) return;
+    public static void test11(ListNode node) {
+        if (node == null) return;
         test11(node.pre);
         System.out.print(node.getValue());
         test11(node.next);
     }
 
-    public static void test12(ListNode node){
-        if(node == null) return;
+    public static void test12(ListNode node) {
+        if (node == null) return;
         test12(node.pre);
         test12(node.next);
         System.out.print(node.getValue());
@@ -163,7 +204,6 @@ public class FirstWeek {
             pCur = pNex;
         }
         return dummy.next;
-
     }
 
     public static ListNode test03() {
