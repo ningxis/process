@@ -43,11 +43,81 @@ public class FirstWeek {
 //        printNode(test04());
 //        printNode(test07(init()));
 //        test09();
-        for (int i = 1; i <= 10; i++) {
-            System.out.println(test19(i));;
+//        test07(init());
+        test21();
+    }
+
+    public static void test21(){
+        //验证自定义的二分查找法
+        int[] a = {};
+        int[] b = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] c = {1, 4, 6, 7, 8, 3, -2};
+
+        //循环实现
+        int circulate1 = test21(a, 0,0,a.length - 1);
+        int circulate2 = test21(b, 5,0,b.length - 1);
+        int circulate3 = test21(c, -2,0,c.length - 1);
+        Arrays.sort(c);
+        int circulate4 = test21(c, -2,0,c.length - 1);
+        System.out.println("++++++++++++++++"+ circulate1 + "");  //-1
+        System.out.println("++++++++++++++++" + circulate2 + ""); //4
+        System.out.println("++++++++++++++++"+ circulate3 + ""); //-1
+        System.out.println("++++++++++++++++" + circulate4 + ""); //0
+    }
+
+    public static int test21(int[] ints,int target,int start,int end){
+        if (start > end || start < 0 || end > ints.length - 1) {
+            return -1;
         }
-        System.out.println(test18(10));
-        System.out.println(test17(10));;
+        int mid = (start + end) / 2;
+        if(ints[mid] > target){
+            return test21(ints,target,start,mid - 1);
+        } else if(ints[mid] < target){
+            return test21(ints,target,mid + 1,end);
+        }
+        else {
+            return mid;
+        }
+    }
+
+    public static void test20(){
+        //验证自定义的二分查找法
+        int[] a = {};
+        int[] b = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] c = {1, 4, 6, 7, 8, 3, -2};
+
+        //循环实现
+        int circulate1 = test20(a, 0);
+        int circulate2 = test20(b, 5);
+        int circulate3 = test20(c, -2);
+        Arrays.sort(c);
+        int circulate4 = test20(c, -2);
+        System.out.println("++++++++++++++++"+ circulate1 + "");  //-1
+        System.out.println("++++++++++++++++" + circulate2 + ""); //4
+        System.out.println("++++++++++++++++"+ circulate3 + ""); //-1
+        System.out.println("++++++++++++++++" + circulate4 + ""); //0
+    }
+
+    //二分查找法,for循环迭代法实现
+    public static int test20(int[] ints, int val) {
+        int start = 0;
+        int end = ints.length - 1;
+
+        while (end >= start) {
+            int mid = (start + end) / 2;
+            if (ints[mid] > val) {
+                end = mid - 1;
+
+            }
+            if (ints[mid] == val) {
+                return mid ;
+            }
+            if (ints[mid] < val) {
+                start = mid + 1;
+
+            }
+        }
+        return -1;
 
     }
 
@@ -245,7 +315,7 @@ public class FirstWeek {
         ListNode last = test07(head.next);
         head.next.next = head;
         head.next = null;
-        return last;
+        return last;//返回之后还是会执行递归方法
     }
 
     public static ListNode test04() {
