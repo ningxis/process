@@ -2,9 +2,7 @@ package com.dn.algorithm.leetcode;
 
 import com.dn.bean.ListNode;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author dingning
@@ -16,6 +14,7 @@ public class FirstWeek {
 
 
     public static void postOrder2(ListNode root) {
+//        Deque
         Stack<ListNode> s1 = new Stack<>();
         Stack<ListNode> s2 = new Stack<>();
         s1.push(root);
@@ -89,6 +88,8 @@ public class FirstWeek {
         return test17(number - 1) + test17(number - 2);
     }
 
+
+
     public static void printByStack(ListNode root) {
         Stack<ListNode> stack = new Stack<>();
         ListNode node = root;
@@ -107,8 +108,8 @@ public class FirstWeek {
 
     public static void test08() {
         int[] datas = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 29};
-        BinaryTree biTree = BinaryTree.createBiTree(datas);
-        BinaryTree.print(biTree.getRoot());
+//        BinaryTree biTree = BinaryTree.createBiTree(datas);
+//        BinaryTree.print(biTree.getRoot());
     }
 
     public static void test09() {
