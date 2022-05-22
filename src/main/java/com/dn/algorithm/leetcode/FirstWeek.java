@@ -33,6 +33,26 @@ public class FirstWeek {
         }
     }
 
+    public static int dp(ListNode root) {
+        if (root == null) {
+            return 0;
+        }
+//        int i = dp(root.pre);
+//        int j = dp(root.next);
+//
+//        return (i > j) ? i + 1 : j + 1;
+        if(root == null){
+            return 0;
+        }
+//        int i = dp(root.pre);
+//        int j = dp(root.next);
+//        return (i<j)? j+1:i+1;
+        if(root == null){
+            return 0;
+        }
+        return Math.max(dp(root.pre),dp(root.next)) +1;
+    }
+
 
     public static void main(String[] args) {
 //        printNode(test01());
@@ -43,44 +63,49 @@ public class FirstWeek {
 //        printNode(test04());
 //        printNode(test07(init()));
 //        test09();
-//        test07(init());
-        test21();
+        ListNode root = new ListNode("A");
+        root.pre = new ListNode("B");
+        root.next = new ListNode("C");
+        root.pre.pre = new ListNode("D");
+        root.pre.next = new ListNode("E");
+        root.next.pre = new ListNode("F");
+        System.out.println(dp(root));
+//        test21();
     }
 
-    public static void test21(){
+    public static void test21() {
         //验证自定义的二分查找法
         int[] a = {};
         int[] b = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] c = {1, 4, 6, 7, 8, 3, -2};
 
         //循环实现
-        int circulate1 = test21(a, 0,0,a.length - 1);
-        int circulate2 = test21(b, 5,0,b.length - 1);
-        int circulate3 = test21(c, -2,0,c.length - 1);
+        int circulate1 = test21(a, 0, 0, a.length - 1);
+        int circulate2 = test21(b, 5, 0, b.length - 1);
+        int circulate3 = test21(c, -2, 0, c.length - 1);
         Arrays.sort(c);
-        int circulate4 = test21(c, -2,0,c.length - 1);
-        System.out.println("++++++++++++++++"+ circulate1 + "");  //-1
+        int circulate4 = test21(c, -2, 0, c.length - 1);
+        System.out.println("++++++++++++++++" + circulate1 + "");  //-1
         System.out.println("++++++++++++++++" + circulate2 + ""); //4
-        System.out.println("++++++++++++++++"+ circulate3 + ""); //-1
+        System.out.println("++++++++++++++++" + circulate3 + ""); //-1
         System.out.println("++++++++++++++++" + circulate4 + ""); //0
     }
 
-    public static int test21(int[] ints,int target,int start,int end){
+    public static int test21(int[] ints, int target, int start, int end) {
         if (start > end || start < 0 || end > ints.length - 1) {
             return -1;
         }
         int mid = (start + end) / 2;
-        if(ints[mid] > target){
-            return test21(ints,target,start,mid - 1);
-        } else if(ints[mid] < target){
-            return test21(ints,target,mid + 1,end);
-        }
-        else {
+        if (ints[mid] > target) {
+            return test21(ints, target, start, mid - 1);
+        } else if (ints[mid] < target) {
+            return test21(ints, target, mid + 1, end);
+        } else {
             return mid;
         }
     }
 
-    public static void test20(){
+    public static void test20() {
         //验证自定义的二分查找法
         int[] a = {};
         int[] b = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -92,9 +117,9 @@ public class FirstWeek {
         int circulate3 = test20(c, -2);
         Arrays.sort(c);
         int circulate4 = test20(c, -2);
-        System.out.println("++++++++++++++++"+ circulate1 + "");  //-1
+        System.out.println("++++++++++++++++" + circulate1 + "");  //-1
         System.out.println("++++++++++++++++" + circulate2 + ""); //4
-        System.out.println("++++++++++++++++"+ circulate3 + ""); //-1
+        System.out.println("++++++++++++++++" + circulate3 + ""); //-1
         System.out.println("++++++++++++++++" + circulate4 + ""); //0
     }
 
@@ -110,7 +135,7 @@ public class FirstWeek {
 
             }
             if (ints[mid] == val) {
-                return mid ;
+                return mid;
             }
             if (ints[mid] < val) {
                 start = mid + 1;
@@ -157,7 +182,6 @@ public class FirstWeek {
         }
         return test17(number - 1) + test17(number - 2);
     }
-
 
 
     public static void printByStack(ListNode root) {
