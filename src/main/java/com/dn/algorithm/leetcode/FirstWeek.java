@@ -33,6 +33,28 @@ public class FirstWeek {
         }
     }
 
+        public boolean isPalindrome(ListNode head) {
+            ListNode pre = null;
+            ListNode slow = head;
+            ListNode fast = head;
+            while(fast != null && fast.next != null){
+                ListNode temp = slow.next;
+                if(pre != null) {
+                    slow.next = pre;
+                }
+                pre = slow;
+                fast = fast.next.next;
+                slow = temp;
+            }
+            if(fast != null) slow = slow.next;
+            while(slow != null){
+                if(slow.value != pre.value) return false;
+                slow = slow.next;
+                pre = pre.next;
+            }
+            return true;
+        }
+
     public static int dp(ListNode root) {
         if (root == null) {
             return 0;
@@ -63,14 +85,27 @@ public class FirstWeek {
 //        printNode(test04());
 //        printNode(test07(init()));
 //        test09();
-        ListNode root = new ListNode("A");
-        root.pre = new ListNode("B");
-        root.next = new ListNode("C");
-        root.pre.pre = new ListNode("D");
-        root.pre.next = new ListNode("E");
-        root.next.pre = new ListNode("F");
-        System.out.println(dp(root));
+//        ListNode root = new ListNode("A");
+//        root.pre = new ListNode("B");
+//        root.next = new ListNode("C");
+//        root.pre.pre = new ListNode("D");
+//        root.pre.next = new ListNode("E");
+//        root.next.pre = new ListNode("F");
+//        System.out.println(dp(root));
 //        test21();
+        int[] array = new int[]{2,7,9,3,1};
+        System.out.println(test22(array));
+    }
+
+    public static int test22(int[] array){
+            int fir = 0;
+            int sec = 0;
+            for(int i = 0; i + 2 <= array.length -1;){
+                fir = fir + array[i];
+                sec = sec + array[i + 1];
+                i = i + 2;
+            }
+            return Math.max(fir,sec);
     }
 
     public static void test21() {
