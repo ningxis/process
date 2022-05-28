@@ -1,4 +1,7 @@
 package com.dn.algorithm.leetcode;
+
+import com.dn.bean.ListNode;
+
 /**
 * @description: 
 * @author dingning
@@ -6,9 +9,6 @@ package com.dn.algorithm.leetcode;
 * @version 1.0
 */
 public class SecondWeek {
-    public static void main(String[] args) {
-
-    }
 
     //快慢指针链表找环
     public static boolean test01(ListNode root){
