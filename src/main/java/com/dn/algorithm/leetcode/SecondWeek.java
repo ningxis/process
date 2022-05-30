@@ -1,9 +1,6 @@
 package com.dn.algorithm.leetcode;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dn.bean.ListNode;
-import netscape.javascript.JSObject;
 
 /**
 * @description: 
@@ -12,6 +9,26 @@ import netscape.javascript.JSObject;
 * @version 1.0
 */
 public class SecondWeek {
+
+    //快慢指针链表找环
+    public static boolean test01(ListNode root){
+        if(root == null || root.next == null){
+            return false;
+        }
+        ListNode slow = root.next;
+        ListNode fast = root.next.next;
+        while(slow != fast){
+            if(slow == null || fast == null){
+                return false;
+            }
+            if(slow.next == null || fast.next == null){
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         test02();
