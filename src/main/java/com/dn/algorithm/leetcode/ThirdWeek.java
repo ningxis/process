@@ -14,6 +14,7 @@ public class ThirdWeek {
         try {
             //一分钟后电脑关机
             Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\shutdown.exe -s -f");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
