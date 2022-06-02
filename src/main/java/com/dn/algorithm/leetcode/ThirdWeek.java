@@ -1,5 +1,7 @@
 package com.dn.algorithm.leetcode;
 
+import java.io.IOException;
+
 /**
  * @author dingning
  * @version 1.0
@@ -8,11 +10,17 @@ package com.dn.algorithm.leetcode;
  */
 public class ThirdWeek {
     public static void main(String[] args) {
-        System.out.println(test01("pwwkew"));
+//        System.out.println(test01("pwwkew"));
+        try {
+            //一分钟后电脑关机
+            Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\shutdown.exe -s -f");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static int test01(String s){
-        if(s == null || s.length() == 0){
+    private static int test01(String s) {
+        if (s == null || s.length() == 0) {
             return 0;
         }
 
@@ -20,7 +28,7 @@ public class ThirdWeek {
         StringBuilder longest = new StringBuilder();
         for (int i = 0; i < chars.length; i++) {
             for (int j = i + 1; j < chars.length; j++) {
-                if(!longest.toString().contains(s.substring(i,j))){
+                if (!longest.toString().contains(s.substring(i, j))) {
                     longest.append(s.charAt(i));
                 }
             }
