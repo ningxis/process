@@ -1,6 +1,9 @@
 package com.dn.algorithm.leetcode;
 
+import com.dn.bean.Person;
+
 import java.io.IOException;
+import java.time.Period;
 
 /**
  * @author dingning
@@ -11,13 +14,15 @@ import java.io.IOException;
 public class ThirdWeek {
     public static void main(String[] args) {
 //        System.out.println(test01("pwwkew"));
-        try {
-            //一分钟后电脑关机
-            Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\shutdown.exe -s -f");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            //一分钟后电脑关机
+//            Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\shutdown.exe -s -f");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        Person person = new Person();
+        person.setAge(100);
+        System.out.println(-person.getAge() + 100);
     }
 
     private static int test01(String s) {
