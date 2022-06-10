@@ -27,6 +27,7 @@ public class ZhihuService {
         test02("https://www.zhihu.com/api/v4/answers/1022398794/root_comments?limit=20&offset=0&order=normal&status=open");
     }
 
+    // TODO: dinging 2022/6/10 后续考虑数据库存储
 
     private static void test02(String url) {
         boolean isEnd = false;
