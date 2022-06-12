@@ -2,6 +2,9 @@ package com.dn;
 
 import com.dn.bean.ProcessApplicationContext;
 import com.dn.exception.ServiceResult;
+import com.dn.rpc.dubbo.MessageService;
+import com.dn.rpc.dubbo.MessageServiceImpl;
+import com.dn.rpc.dubbo.RpcFramework;
 import com.dn.service.ActivityServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,30 @@ class ProcessApplicationTests {
     @Autowired
     private ActivityServiceImpl activityService;
 
+
+
+    @Test
+    public void producer(){
+        //服务提供者只需要暴露出接口
+        MessageService service = new MessageServiceImpl();
+        try {
+            RpcFramework.export(2333, service);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void consumer(){
+        //服务调用者只需要设置依赖
+        MessageService service = null;
+        try {
+            service = RpcFramework.refer(MessageService.class, "127.0.0.1", 2333);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        service.sayHello();
+    }
 
     /*
         a b e
