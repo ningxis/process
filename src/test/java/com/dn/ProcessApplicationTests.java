@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +25,35 @@ class ProcessApplicationTests {
     private ActivityServiceImpl activityService;
 
 
+
+    @Test
+    //权限修饰符必须为public才能运行测试
+
+    //如果指定元素尚不存在，则将其添加到此集合中（可选操作）。更正式地说，如果集合不包含元素 e2，则将指定的元素 e 添加到此集合中，
+    // 使得 (e==null ?e2==null:e.equals(e2))。如果该集合已包含该元素，则调用将保持该集合不变并返回 false。
+    // 结合对构造函数的限制，这确保了集合永远不会包含重复的元素。上述规定并不意味着集合必须接受所有元素；
+    // 集合可以拒绝添加任何特定元素，包括 null，并抛出异常，如 Collection.add 规范中所述。
+    // 单独的集合实现应该清楚地记录对它们可能包含的元素的任何限制。参数：e - 要添加到此集合的元素返回：
+    // 如果此集合尚未包含指定元素，则为 true 抛出：UnsupportedOperationException - 如果此集合不支持添加操作 ClassCastException
+    // - 如果指定元素的类阻止它被添加到这个集合 NullPointerException – 如果指定元素为 null 并且这个集合不允许空元素 IllegalArgumentException
+    // – 如果指定元素的某些属性阻止它被添加到这个集合
+    public void testSet(){
+        Set<String> set = new HashSet<>();
+        set.add("!");
+        set.add("1");
+        set.add("3411343241421");
+        set.add("32");
+        set.add("323");
+        set.add("5345535");
+        boolean add = set.add("!");
+        System.out.println(add);//返回元素是否添加
+        add = set.add(null);
+        System.out.println(add);//是否能添加null
+        System.out.println(set);
+        //结果打印：false
+        //true
+        //[null, !, 1, 3411343241421, 323, 32, 5345535]
+    }
 
     @Test
     public void producer(){
