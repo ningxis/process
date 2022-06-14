@@ -41,7 +41,7 @@ class ProcessApplicationTests {
         Set<String> set = new HashSet<>();
         set.add("!");
         set.add("1");
-        set.add("3411343241421");
+        set.add("341134321421");
         set.add("32");
         set.add("323");
         set.add("5345535");
