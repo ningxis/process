@@ -27,6 +27,8 @@ public class RpcFramework {
                     try {
                         //反序列化
                         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                        //这里的转换有问题，拿不到方法名
+                        //todo:dingning 2022/6/15 21:42  解决参数问题
 //                        String methodName = String.valueOf(input.read()); //读取方法名
                         Class<?>[] parameterTypes = (Class<?>[]) input.readObject(); //参数类型
                         Object[] arguments = (Object[]) input.readObject(); //参数
