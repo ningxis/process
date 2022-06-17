@@ -5,8 +5,6 @@ import com.dn.exception.ServiceResult;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +24,7 @@ public class IPValidatorProcess implements ValidatorProcess {
         //考虑扩展,增加白名单、黑名单、时间段配置开关,以及开关配置模式 1、只在白名单中才可以访问 2、不在白名单中也可以访问 3、拒绝所有访问
         Map<String, Object> time = context.getItems().get("time");
         try {
+            //TODO skyline 2022/6/17 考虑用localdatetime替换原有date
             long startTime = format.parse(time.get("startTime").toString()).getTime();
             long endTime = format.parse(time.get("endTime").toString()).getTime();
             long curTime = format.parse(time.get("curTime").toString()).getTime();
