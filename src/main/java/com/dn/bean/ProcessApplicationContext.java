@@ -22,7 +22,7 @@ public class ProcessApplicationContext {
 
 //todo:dingning 2022/5/5 22:55  可以用object
     //Map<String, Map<String, String>> 改成Map<String, Map<String, Object>>保证程序的健壮性，可拓展
-    private Map<String, Map<String, String>> items;
+    private Map<String, Map<String, Object>> items;
 
 
 }

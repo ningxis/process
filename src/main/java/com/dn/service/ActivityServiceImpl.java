@@ -7,6 +7,7 @@ import com.dn.process.DefaultProcessExecutor;
 import com.dn.process.PostProcess;
 import com.dn.process.completion.CompletionProcess;
 import com.dn.process.validator.DefaultValidatorProcess;
+import com.dn.process.validator.IPValidatorProcess;
 import com.dn.process.validator.ValidatorProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -45,6 +46,7 @@ public class ActivityServiceImpl {
         executor.addNode(context.getBean(CompletionProcess.class));
 
         executor.addNode(context.getBean(ActivityInitProcess.class));
+        executor.addNode(context.getBean(IPValidatorProcess.class));
     }
 
 

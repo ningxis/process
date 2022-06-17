@@ -18,11 +18,11 @@ public class CompletionProcessImpl implements CompletionProcess {
     public ServiceResult process(ProcessApplicationContext context) {
         if (context.getItems() == null || context.getItems().isEmpty()) {
             //关联查询数据
-            HashMap<String, String> items = new HashMap<>();
+            HashMap<String, Object> items = new HashMap<>();
             items.put("数据A", "来自newyork");
             items.put("数据B", "来自zhuzhou");
             items.put("数据C", "来自changsha");
-            HashMap<String, Map<String, String>> address = new HashMap<>();
+            HashMap<String, Map<String, Object>> address = new HashMap<>();
             address.put("address", items);
             context.setItems(address);
             System.out.println("地址信息补全成功");

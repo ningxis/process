@@ -11,6 +11,7 @@ public enum ServiceExceptionEnum {
     INIT(110,"初始化失败"),
     VALIDATOR(111,"校验失败,用户姓名不符合要求"),
     ADDRESS(112,"地址信息补全失败"),
+    FAIL(500,"业务执行异常"),
     CACHED(113,"缓存命中");
 
     private int code;

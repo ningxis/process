@@ -30,4 +30,13 @@ public class ServiceResult<T> {
         return new ServiceResult<>(ServiceExceptionEnum.SUCCESS.getMsg(),ServiceExceptionEnum.SUCCESS.getCode()) ;
     }
 
+
+    public static ServiceResult error(String msg){
+        return new ServiceResult<>(msg,ServiceExceptionEnum.FAIL.getCode()) ;
+    }
+
+    public static ServiceResult error(){
+        return new ServiceResult<>(ServiceExceptionEnum.FAIL.getMsg(),ServiceExceptionEnum.FAIL.getCode()) ;
+    }
+
 }
