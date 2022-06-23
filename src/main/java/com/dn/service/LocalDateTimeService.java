@@ -1,9 +1,15 @@
 package com.dn.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.BeanUtils;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author skyline
@@ -45,6 +51,63 @@ public class LocalDateTimeService {
         localDateTime = LocalDateTime.parse(time,dtf);
         System.out.println(dtf.format(LocalDateTime.now()));
         System.out.println(localDateTime);
+    }
+
+    private static void test01(){
+
+        //TODO skyline 2022/6/23 基于BeanUtils.copyProperties(entity, robotGuideTourInfoVo);的一个浅拷贝问题打样处理
+        String result = "{\n" +
+                "\t\t\t\t\"id\": 1,\n" +
+                "\t\t\t\t\"createUser\": 1,\n" +
+                "\t\t\t\t\"createTime\": \"2022-06-23 14:52:52\",\n" +
+                "\t\t\t\t\"updateUser\": 0,\n" +
+                "\t\t\t\t\"updateTime\": null,\n" +
+                "\t\t\t\t\"mark\": 1,\n" +
+                "\t\t\t\t\"companyCode\": \"admin\",\n" +
+                "\t\t\t\t\"robotCode\": \"temi_00120525296\",\n" +
+                "\t\t\t\t\"mode\": \"跟随模式\",\n" +
+                "\t\t\t\t\"name\": \"大厅导览\",\n" +
+                "\t\t\t\t\"status\": \"1\",\n" +
+                "\t\t\t\t\"guidePointList\": [\n" +
+                "\t\t\t\t\t{\n" +
+                "\t\t\t\t\t\t\"id\": 1,\n" +
+                "\t\t\t\t\t\t\"createUser\": null,\n" +
+                "\t\t\t\t\t\t\"createTime\": null,\n" +
+                "\t\t\t\t\t\t\"updateUser\": null,\n" +
+                "\t\t\t\t\t\t\"updateTime\": null,\n" +
+                "\t\t\t\t\t\t\"mark\": 1,\n" +
+                "\t\t\t\t\t\t\"point\": null,\n" +
+                "\t\t\t\t\t\t\"pointName\": \"测试点1\",\n" +
+                "\t\t\t\t\t\t\"status\": \"3\",\n" +
+                "\t\t\t\t\t\t\"guideTourId\": 1,\n" +
+                "\t\t\t\t\t\t\"taskId\": \"1\",\n" +
+                "\t\t\t\t\t\t\"rank\": 1,\n" +
+                "\t\t\t\t\t\t\"arriveWords\": \"stay hungry\",\n" +
+                "\t\t\t\t\t\t\"leaveWords\": \"stay foolish\",\n" +
+                "\t\t\t\t\t\t\"stayTime\": 3\n" +
+                "\t\t\t\t\t}\n" +
+                "\t\t\t\t]\n" +
+                "\t\t\t}";
+//        RobotGuideTour entity = JSON.parseObject(result,RobotGuideTour.class);
+//        RobotGuideTourInfoVo robotGuideTourInfoVo = new RobotGuideTourInfoVo();
+//        BeanUtils.copyProperties(entity, robotGuideTourInfoVo);
+//        System.out.println(JSONObject.toJSONString(robotGuideTourInfoVo));
+//        String taskString = "[{\"id\":1,\"createdBy\":1,\"createdTime\":\"2021-12-10 17:57:43\",\"updatedBy\":2,\"updatedTime\":\"2022-06-22 11:00:40\",\"remark\":null,\"delFlag\":\"0\",\"businessName\":\"视远业务\",\"businessKey\":\"test\",\"companyCode\":\"admin\",\"commandProcess\":\"[1,2]\"},{\"id\":2,\"createdBy\":1,\"createdTime\":\"2021-12-22 17:50:53\",\"updatedBy\":2,\"updatedTime\":\"2022-06-22 10:57:16\",\"remark\":null,\"delFlag\":\"0\",\"businessName\":\"播放视频\",\"businessKey\":\"showWord\",\"companyCode\":\"admin\",\"commandProcess\":\"[1,1]\"},{\"id\":3,\"createdBy\":2,\"createdTime\":\"2022-06-23 11:34:59\",\"updatedBy\":null,\"updatedTime\":null,\"remark\":null,\"delFlag\":\"0\",\"businessName\":\"测试业务\",\"businessKey\":\"aaa\",\"companyCode\":\"admin\",\"commandProcess\":\"[4]\"}]";
+//        List<ActionBusinessVo> taskList = JSON.parseArray(taskString, ActionBusinessVo.class);
+//        HashMap<String,ActionBusinessVo> actionBusiness = new HashMap<>();
+//        for (ActionBusinessVo actionBusinessVo : taskList) {
+//            actionBusiness.put(actionBusinessVo.getId() + "",actionBusinessVo);
+//        }
+//
+//        for (RobotGuidePoint robotGuidePoint : entity.getGuidePointList()) {
+//            RobotGuidePointListVo robotGuidePointListVo = new RobotGuidePointListVo();
+//            BeanUtils.copyProperties(robotGuidePoint, robotGuidePointListVo);
+//            ActionBusinessVo actionBusinessVo = actionBusiness.get(robotGuidePoint.getTaskId());
+//            robotGuidePointListVo.setTask(actionBusinessVo);
+//            robotGuideTourInfoVo.getGuidePointList().add(robotGuidePointListVo);
+//            robotGuidePoint = null;
+//        }
+//        System.out.println(JSONObject.toJSONString(robotGuideTourInfoVo));
     }
 
 
