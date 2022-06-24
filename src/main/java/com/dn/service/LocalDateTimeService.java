@@ -20,6 +20,10 @@ import java.util.List;
 public class LocalDateTimeService {
 
     public static void main(String[] args) {
+
+    }
+
+    private static void test(){
         String time = "2022-06-17 17:44:35";
 
         String time1 = "2022-06-17";
@@ -108,6 +112,20 @@ public class LocalDateTimeService {
 //            robotGuidePoint = null;
 //        }
 //        System.out.println(JSONObject.toJSONString(robotGuideTourInfoVo));
+    }
+
+    private static void test02(){
+        //首先去redis中获取，没有key值（过期或者没有初始化）
+        //去数据库中获取ip配置和时间配置
+        String ipList = "[12.24.25.216,12.24.25.217,12.24.25.218,12.24.25.219,12.24.25.210,12.24.25.211,12.24.25.212,12.24.25.213,12.24.25.214]";
+        String[] split = ipList.replace("[","").replace("]","").split(",");
+        for (String s : split) {
+            String redisKey = "IP" + s;
+            System.out.println(redisKey);
+            //redis 插入
+        }
+        //TODO skyline 2022/6/24 引入redis，本地测试运行功能实现
+        //插入之后进行逻辑判断
     }
 
 
