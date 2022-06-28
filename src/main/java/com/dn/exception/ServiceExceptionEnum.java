@@ -4,6 +4,7 @@ package com.dn.exception;
  */
 
 
+import java.util.HashMap;
 
 public enum ServiceExceptionEnum {
 
@@ -29,6 +30,14 @@ public enum ServiceExceptionEnum {
 
     public String getMsg(){
         return this.msg;
+    }
+
+    public final static HashMap<Integer, String> allException = new HashMap<>();
+
+    static {
+        for (ServiceExceptionEnum value : ServiceExceptionEnum.values()) {
+            allException.put(value.getCode(),value.getMsg());
+        }
     }
 
 }

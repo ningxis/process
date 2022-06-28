@@ -2,6 +2,7 @@ package com.dn.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dn.exception.ServiceExceptionEnum;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ import java.util.List;
 public class LocalDateTimeService {
 
     public static void main(String[] args) {
-
+        test03();
     }
 
     private static void test(){
@@ -128,5 +129,19 @@ public class LocalDateTimeService {
         //插入之后进行逻辑判断
     }
 
+    @SuppressWarnings("unchecked")
+    private static void test03(){
+        //关于map的拷贝问题，如果直接用应用地址指向原有map，后续更改会影响原有map，clone之后是不会影响原有map的
+        HashMap<Integer, String> hashMap = (HashMap<Integer, String>) ServiceExceptionEnum.allException.clone();
+        hashMap.put(1,"2");
+        hashMap.put(2,"2");
+        hashMap.put(3,"2");
+        hashMap.put(4,"2");
+        hashMap.put(5,"2");
+        hashMap.put(6,"2");
+        hashMap.put(7,"2");
+        System.out.println(JSONObject.toJSONString(hashMap));
+        System.out.println(JSONObject.toJSONString(ServiceExceptionEnum.allException));
+    }
 
 }
