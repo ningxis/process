@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author skyline
@@ -24,13 +23,12 @@ public class LocalDateTimeService {
         test03();
     }
 
-    private static void test(){
+    private static void test() {
         String time = "2022-06-17 17:44:35";
 
         String time1 = "2022-06-17";
 
         String time2 = "17:44:35";
-
 
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -41,24 +39,24 @@ public class LocalDateTimeService {
 
         //当前时间 年月日
         LocalDate localDate = LocalDate.now();
-        localDate = LocalDate.parse(time1,dtf1);
+        localDate = LocalDate.parse(time1, dtf1);
         System.out.println(dtf1.format(LocalDateTime.now()));
         System.out.println(localDate);
 
         //当前时间 时分秒
         LocalTime localTime = LocalTime.now();
-        localTime = LocalTime.parse(time2,dtf2);
+        localTime = LocalTime.parse(time2, dtf2);
         System.out.println(dtf2.format(LocalDateTime.now()));
         System.out.println(localTime);
 
         //当前时间 年月日时分秒
         LocalDateTime localDateTime = LocalDateTime.now();
-        localDateTime = LocalDateTime.parse(time,dtf);
+        localDateTime = LocalDateTime.parse(time, dtf);
         System.out.println(dtf.format(LocalDateTime.now()));
         System.out.println(localDateTime);
     }
 
-    private static void test01(){
+    private static void test01() {
 
         //TODO skyline 2022/6/23 基于BeanUtils.copyProperties(entity, robotGuideTourInfoVo);的一个浅拷贝问题打样处理
         String result = "{\n" +
@@ -115,11 +113,11 @@ public class LocalDateTimeService {
 //        System.out.println(JSONObject.toJSONString(robotGuideTourInfoVo));
     }
 
-    private static void test02(){
+    private static void test02() {
         //首先去redis中获取，没有key值（过期或者没有初始化）
         //去数据库中获取ip配置和时间配置
         String ipList = "[12.24.25.216,12.24.25.217,12.24.25.218,12.24.25.219,12.24.25.210,12.24.25.211,12.24.25.212,12.24.25.213,12.24.25.214]";
-        String[] split = ipList.replace("[","").replace("]","").split(",");
+        String[] split = ipList.replace("[", "").replace("]", "").split(",");
         for (String s : split) {
             String redisKey = "IP" + s;
             System.out.println(redisKey);
@@ -130,18 +128,31 @@ public class LocalDateTimeService {
     }
 
     @SuppressWarnings("unchecked")
-    private static void test03(){
+    private static void test03() {
         //关于map的拷贝问题，如果直接用应用地址指向原有map，后续更改会影响原有map，clone之后是不会影响原有map的
         HashMap<Integer, String> hashMap = (HashMap<Integer, String>) ServiceExceptionEnum.allException.clone();
-        hashMap.put(1,"2");
-        hashMap.put(2,"2");
-        hashMap.put(3,"2");
-        hashMap.put(4,"2");
-        hashMap.put(5,"2");
-        hashMap.put(6,"2");
-        hashMap.put(7,"2");
+        hashMap.put(1, "2");
+        hashMap.put(2, "2");
+        hashMap.put(3, "2");
+        hashMap.put(4, "2");
+        hashMap.put(5, "2");
+        hashMap.put(6, "2");
+        hashMap.put(7, "2");
         System.out.println(JSONObject.toJSONString(hashMap));
         System.out.println(JSONObject.toJSONString(ServiceExceptionEnum.allException));
     }
 
+    //根据map的key降序排列
+    public static Map<String, Map<String, String>> test04(Map<String, Map<String, String>> map) {
+        if (map == null || map.isEmpty()) {
+            return null;
+        }
+        //利用匿名内部类，重写compare to 方法
+
+        Map<String, Map<String, String>> sortMap = new TreeMap<>(Comparator.reverseOrder());
+
+        sortMap.putAll(map);
+
+        return sortMap;
+    }
 }
