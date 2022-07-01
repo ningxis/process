@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -20,7 +21,13 @@ import java.util.*;
 public class LocalDateTimeService {
 
     public static void main(String[] args) {
-        test03();
+        System.out.println(checkPassword("42W12@$mX"));
+        System.out.println(new Date());
+        long time = new Date().getTime();
+        System.out.println(time);
+        System.out.println(LocalDate.now().toString());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        System.out.println(dateTimeFormatter.format(LocalDate.of(2022, Month.of(7),28)));
     }
 
     private static void test() {
@@ -154,5 +161,11 @@ public class LocalDateTimeService {
         sortMap.putAll(map);
 
         return sortMap;
+    }
+
+    //8-16位
+    private static boolean checkPassword(String password) {
+        String regex = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
+        return password.matches(regex);
     }
 }
