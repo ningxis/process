@@ -21,13 +21,7 @@ import java.util.*;
 public class LocalDateTimeService {
 
     public static void main(String[] args) {
-        System.out.println(checkPassword("42W12@$mX"));
-        System.out.println(new Date());
-        long time = new Date().getTime();
-        System.out.println(time);
-        System.out.println(LocalDate.now().toString());
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.println(dateTimeFormatter.format(LocalDate.of(2022, Month.of(7),28)));
+        testTime();
     }
 
     private static void test() {
@@ -167,5 +161,14 @@ public class LocalDateTimeService {
     private static boolean checkPassword(String password) {
         String regex = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
         return password.matches(regex);
+    }
+
+
+
+
+    private static void testTime(){
+        long end = 1656928350814L;
+        System.out.println((new Date().getTime() - end ));
+        System.out.println((new Date().getTime() - end ) > 300 * 1000L);
     }
 }
