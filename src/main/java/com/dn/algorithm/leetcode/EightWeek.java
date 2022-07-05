@@ -1,0 +1,91 @@
+package com.dn.algorithm.leetcode;
+
+import java.util.Stack;
+
+/**
+ * @author skyline
+ * @version 1.0
+ * @description:
+ * @date 2022/7/5 16:17
+ */
+public class EightWeek {
+
+    public static void main(String[] args) {
+        testLeetCode69();
+//        System.out.println(leetCode20("]"));
+
+    }
+
+    public static void testLeetCode69() {
+        for (int i = 0; i < 101; i++) {
+            System.out.println(i + ":" + leetCode69(i));
+        }
+    }
+
+    private static int leetCode69(int x) {
+        if (x == 0) {
+            return 0;
+        }
+        if (x == 1) {
+            return 1;
+        }
+        int left = 1;
+        int right = x;
+
+        while (right >= left) {
+            int mid = left + ((right - left) >> 1);
+            if (x / mid == mid) {
+                return mid;
+            }
+            if (x / mid > mid) {
+                left = mid + 1;
+            }
+            if (x / mid < mid) {
+                right = mid - 1;
+            }
+
+        }
+        return right;
+    }
+
+    //给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效
+    private static boolean leetCode20(String s) {
+        Stack<String> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char a = s.charAt(i);
+            switch (a) {
+                case '(':
+                    stack.push("(");
+                    break;
+                case '{':
+                    stack.push("{");
+                    break;
+                case '[':
+                    stack.push("[");
+                    break;
+                case ']':
+                    if (!stack.isEmpty() && stack.peek().equals("[")) {
+                        stack.pop();
+                    } else {
+                        return false;
+                    }
+                    break;
+                case '}':
+                    if (!stack.isEmpty() && stack.peek().equals("{")) {
+                        stack.pop();
+                    } else {
+                        return false;
+                    }
+                    break;
+                case ')':
+                    if (!stack.isEmpty() && stack.peek().equals("(")) {
+                        stack.pop();
+                    } else {
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
