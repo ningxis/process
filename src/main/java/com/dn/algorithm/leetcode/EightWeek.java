@@ -1,5 +1,6 @@
 package com.dn.algorithm.leetcode;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Stack;
 public class EightWeek {
 
     public static void main(String[] args) {
-        testLeetCode69();
+        System.out.println(leetCode20ByHashMap("()"));
 //        System.out.println(leetCode20("]"));
 
     }
@@ -84,6 +85,29 @@ public class EightWeek {
                         return false;
                     }
                     break;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    private static boolean leetCode20ByHashMap(String s) {
+        int n = s.length();
+        if (n % 2 == 1) {
+            return false;
+        }
+        HashMap<Character,Character> map = new HashMap<>();
+        map.put('(',')');
+        map.put('{','}');
+        map.put('[',']');
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if(map.containsKey(c)){
+                stack.push(c);
+            }else{
+                if(stack.isEmpty() ||  c != map.get(stack.peek()) ){
+                    return false;
+                }
+                stack.pop();
             }
         }
         return stack.isEmpty();
