@@ -14,6 +14,8 @@ public class EightWeek {
     public static void main(String[] args) {
         System.out.println(leetCode20ByHashMap("()"));
 //        System.out.println(leetCode20("]"));
+        int[] ints = new int[10];
+        System.out.println(ints.length);
 
     }
 
@@ -111,5 +113,19 @@ public class EightWeek {
             }
         }
         return stack.isEmpty();
+    }
+
+    private static int[] leetCode283(int[] nums){
+        if(nums.length == 0){
+            return new int[0];
+        }
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i + 1] != 0){
+                if(nums[i] == 0){
+                    nums[i] = nums[i + 1];
+                }
+            }
+        }
+        return nums;
     }
 }
