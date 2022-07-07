@@ -14,7 +14,7 @@ public class EightWeek {
     public static void main(String[] args) {
 //        System.out.println(leetCode20ByHashMap("()"));
 //        System.out.println(leetCode20("]"));
-        System.out.println(Arrays.toString(leetCode283(new int[]{0, 1, 0, 3, 12})));
+//        System.out.println(Arrays.toString(leetCode283(new int[]{0, 1, 0, 3, 12})));
     }
 
     public static void testLeetCode69() {
