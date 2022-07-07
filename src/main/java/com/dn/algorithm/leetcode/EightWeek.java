@@ -1,5 +1,6 @@
 package com.dn.algorithm.leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -12,9 +13,9 @@ import java.util.Stack;
 public class EightWeek {
 
     public static void main(String[] args) {
-        System.out.println(leetCode20ByHashMap("()"));
+//        System.out.println(leetCode20ByHashMap("()"));
 //        System.out.println(leetCode20("]"));
-
+        System.out.println(Arrays.toString(leetCode283(new int[]{0, 1, 0, 3, 12})));
     }
 
     public static void testLeetCode69() {
@@ -51,6 +52,10 @@ public class EightWeek {
 
     //给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效
     private static boolean leetCode20(String s) {
+        //先判断边界
+        if(s.length() == 0 || s.length() % 2 == 1 ){
+            return false;
+        }
         Stack<String> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             char a = s.charAt(i);
@@ -111,5 +116,18 @@ public class EightWeek {
             }
         }
         return stack.isEmpty();
+    }
+
+    private static int[] leetCode283(int[] nums){
+        if(nums.length == 0){
+            return new int[]{};
+        }
+        for (int i = 0; i < nums.length - 1; i++) {
+            if(nums[i + 1] != 0 && nums[i] ==0){
+                nums[i] = nums[i + 1];
+                nums[i + 1] = 0;
+            }
+        }
+        return nums;
     }
 }
