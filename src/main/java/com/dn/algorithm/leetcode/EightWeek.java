@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * @author skyline
  * @version 1.0
- * @description:
+ * @description 语言只是用来实现功能的工具，同样的算法，java、python、JavaScript、c++都能实现，只是语言间的语法不一样罢了
  * @date 2022/7/5 16:17
  */
 public class EightWeek {
