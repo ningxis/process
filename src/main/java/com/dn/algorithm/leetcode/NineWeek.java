@@ -18,7 +18,9 @@ public class NineWeek {
     private static int count = 0;
 
     public static void main(String[] args) {
-
+        //todo:dingning 2022/7/9 下午 11:55  未能实现可配置化，也不能完全循环打印，还有线程间通信写法未尝试
+        //晚上是安静的好时候，适合写代码思考，有看到一些导航网站，真的挺棒的，感叹互联网真的给了我们太多便利，信息差就是我们效率的提升方向
+        //想做的还很多，继续加油
     }
 
     //循环打印abc
