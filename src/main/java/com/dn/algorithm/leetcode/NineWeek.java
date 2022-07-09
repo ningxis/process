@@ -2,6 +2,9 @@ package com.dn.algorithm.leetcode;
 
 import org.junit.Test;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
 /**
  * @author dingning
  * @date 2022/7/9 上午 11:48
@@ -51,5 +54,18 @@ public class NineWeek {
         threadA.start();
         threadB.start();
         threadC.start();
+    }
+
+    @Test
+    public void cyclePrintABCByCallable(){
+        FutureTask<String> futureTask = new FutureTask<>(()->{
+            System.out.println("A");
+            return "A";
+        });
+        try {
+            System.out.println(futureTask.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
