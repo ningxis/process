@@ -3,6 +3,7 @@ package com.dn.algorithm.leetcode;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -157,8 +158,42 @@ public class NineWeek {
         }
     }
 
+    private static int leetCode26(int[] nums){
+        if(nums.length == 0){
+            return 0;
+        }
+        //用快慢指针解决问题
+        int tmp = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[tmp] != nums[i]){
+                tmp++;
+                nums[tmp] = nums[i];
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return tmp + 1;
+    }
+
+    private static int leetCode26Copy(int[] nums){
+        if(nums == null || nums.length == 0) return 0;
+        int p = 0;
+        int q = 1;
+        while(q < nums.length){
+            if(nums[p] != nums[q]){
+                nums[p + 1] = nums[q];
+                p++;
+            }
+            q++;
+        }
+        System.out.println(Arrays.toString(nums));
+        return p + 1;
+    }
+
     public static void main(String[] args) {
-        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
+//        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
+        Objects.equals("","");//比较两个对象的值是否相等，且不为空
+        System.out.println(leetCode26(new int[]{1,1,2}));
+        System.out.println(leetCode26(new int[]{0,0,1,1,1,2,2,3,3,4}));
     }
 
 
