@@ -324,11 +324,12 @@ public class NineWeek {
 
     //最大子数组和
     private static int leetCode53(int[] nums){
-        //滑动窗口实现
-        if(nums.length == 0){
-            return 0;
+        int pre = 0, maxAns = nums[0];
+        for (int x : nums) {
+            pre = Math.max(pre + x, x); //当前位置的最大值
+            maxAns = Math.max(maxAns, pre); //全部数据的最大值
         }
-        return 1;
+        return pre;
     }
 
     //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
@@ -338,7 +339,7 @@ public class NineWeek {
 //        System.out.println(leetCode26(new int[]{1,1,2}));
 //        System.out.println(leetCode26(new int[]{0,0,1,1,1,2,2,3,3,4}));
 //        System.out.println(leetCode28("hello","ll"));
-        System.out.println(leetCode35(new int[]{1},1));
+        System.out.println(leetCode53(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
     }
 
 
