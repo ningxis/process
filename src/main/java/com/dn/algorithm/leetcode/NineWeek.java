@@ -3,6 +3,7 @@ package com.dn.algorithm.leetcode;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -306,12 +307,38 @@ public class NineWeek {
         return next;
     }
 
+    private static int leetCode35(int[] nums,int target){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i],i);
+            if(map.get(target) != null){
+                return map.get(target);
+            }
+            if(target < nums[i]){
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+
+    //最大子数组和
+    private static int leetCode53(int[] nums){
+        //滑动窗口实现
+        if(nums.length == 0){
+            return 0;
+        }
+        return 1;
+    }
+
+    //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
     public static void main(String[] args) {
 //        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
         Objects.equals("","");//比较两个对象的值是否相等，且不为空
 //        System.out.println(leetCode26(new int[]{1,1,2}));
 //        System.out.println(leetCode26(new int[]{0,0,1,1,1,2,2,3,3,4}));
-        System.out.println(leetCode28("hello","ll"));
+//        System.out.println(leetCode28("hello","ll"));
+        System.out.println(leetCode35(new int[]{1},1));
     }
 
 
