@@ -332,6 +332,11 @@ public class NineWeek {
         return pre;
     }
 
+    private static int leetCode58(String word){
+        String[] s = word.split(" ");
+        return s[s.length - 1].length();
+    }
+
     //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
     public static void main(String[] args) {
 //        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
