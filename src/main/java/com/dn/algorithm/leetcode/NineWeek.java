@@ -1,5 +1,6 @@
 package com.dn.algorithm.leetcode;
 
+import com.dn.bean.ListNode;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.concurrent.FutureTask;
  * <p>
  * 世界上唯有两样东西能让我们的内心受到深深的震撼，一是我们头顶浩瀚灿烂的星空，一是我们心中崇高的道德法则。
  * ——康德《实践理性批判》
+ * 这几天看完了茶馆的电视剧，感触很深，和百年孤独呈现出来的历史感是一致的
  */
 public class NineWeek {
 
@@ -125,6 +127,10 @@ public class NineWeek {
     }
 
     private static void mergeCopy1(int[] nums1, int m, int[] nums2, int n) {
+        nums1 = new int[]{1,2,3,0,0,0};
+        m = 3;
+        nums2 = new int[]{2,5,6};
+        n = 3;
         //1.check
         if (nums1 == null && nums2 == null) {
             return;
@@ -158,6 +164,8 @@ public class NineWeek {
     }
 
     private static int leetCode26(int[] nums) {
+        nums = new int[]{0,0,1,1,1,2,2,3,3,4};
+
         if (nums.length == 0) {
             return 0;
         }
@@ -189,6 +197,8 @@ public class NineWeek {
     }
 
     private static int leetCode28(String haystack, String needle) {
+        haystack = "hello";
+        needle = "ll";
         if (haystack.length() == 0 || needle.length() == 0) {
             return 0;
         }
@@ -322,6 +332,7 @@ public class NineWeek {
 
     //最大子数组和
     private static int leetCode53(int[] nums) {
+        nums = new int[]{-2,1,-3,4,-1,2,1,-5,4};
         int pre = 0, maxAns = nums[0];
         for (int x : nums) {
             pre = Math.max(pre + x, x); //当前位置的最大值
@@ -363,6 +374,7 @@ public class NineWeek {
     }
 
     private static int[] leetCode66Copy(int[] digits){
+        digits = new int[]{8,9,9,9};
         int len = digits.length;
         for (int i = len - 1; i >= 0; i--) {
             digits[i] = (digits[i] + 1) % 10;
@@ -376,15 +388,34 @@ public class NineWeek {
         return digits;
     }
 
+    private static ListNode<Integer> leetCode83(ListNode<Integer> head){
+        head = new ListNode<>(1);
+        head.next = new ListNode<>(2);
+        head.next.next = new ListNode<>(2);
+        head.next.next.next = new ListNode<>(3);
+        head.next.next.next.next = new ListNode<>(4);
+        head.next.next.next.next.next = new ListNode<>(4);
+        head.next.next.next.next.next.next = new ListNode<>(4);
+
+        if(head == null){
+            return null;
+        }
+        //关于链表的引用，必须新建一个临时变量去更改，然后返回原有链表
+        ListNode<Integer> pre = head;
+        while(pre.next != null){
+            if(pre.next.value.equals(pre.value)){
+                pre.next = pre.next.next;
+            }else {
+                pre = pre.next;
+            }
+        }
+        return head;
+    }
+
     //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
     public static void main(String[] args) {
-//        merge(new int[]{1,2,3,0,0,0},3,new int[]{2,5,6},3);
         Objects.equals("", "");//比较两个对象的值是否相等，且不为空
-//        System.out.println(leetCode26(new int[]{1,1,2}));
-//        System.out.println(leetCode26(new int[]{0,0,1,1,1,2,2,3,3,4}));
-//        System.out.println(leetCode28("hello","ll"));
-//        System.out.println(leetCode53(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
-        System.out.println(Arrays.toString(leetCode66Copy(new int[]{8,9,9,9})));
+
     }
 
 
