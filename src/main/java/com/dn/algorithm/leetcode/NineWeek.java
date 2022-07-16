@@ -1,6 +1,7 @@
 package com.dn.algorithm.leetcode;
 
 import com.dn.bean.ListNode;
+import com.dn.bean.TreeNode;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -410,6 +411,23 @@ public class NineWeek {
             }
         }
         return head;
+    }
+
+    //67. 二进制求和
+    private static String leetCode67(String a, String b){
+
+        return "";
+    }
+
+    //此为深搜写法，还有广搜写法较为复杂 可以todo
+    private static boolean leetCode100(TreeNode p, TreeNode q){
+        if(p == null || q == null){
+            return q == p;
+        }
+        if(p.val != q.val){
+            return false;
+        }
+        return leetCode100(p.left,q.left) && leetCode100(p.right,q.right);
     }
 
     //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
