@@ -415,7 +415,7 @@ public class NineWeek {
 
     //67. 二进制求和
     private static String leetCode67(String a, String b){
-
+        //先补齐0，再去做二进制计算
         return "";
     }
 
@@ -433,7 +433,6 @@ public class NineWeek {
     //算法题目前碰到的几种解法：递归、滑动窗口、双指针、动态规划、分治
     public static void main(String[] args) {
         Objects.equals("", "");//比较两个对象的值是否相等，且不为空
-
     }
 
 
