@@ -1,5 +1,12 @@
 package com.dn.algorithm.leetcode;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * @author dingning
  * @date 2022/7/17 上午 10:21
@@ -8,8 +15,114 @@ package com.dn.algorithm.leetcode;
 public class TenWeek {
 
 
+    //118. 杨辉三角 todo 优化
+    private static List<List<Integer>> leetCode118(int numRows) {
+        numRows = 10;
+        List<List<Integer>> ret = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    list.add(1);
+                } else {
+                    list.add(ret.get(i - 1).get(j - 1) + ret.get(i - 1).get(j));
+                }
+            }
+            ret.add(list);
+        }
+        System.out.println(JSONObject.toJSONString(ret));
+        return ret;
+    }
+
+    //判断是否是回文串
+    private static boolean leetCode125() {
+        String s = "race a car";
+        //首先先把s合并英文字符串
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                builder.append(s.charAt(i));
+            }
+        }
+        s = builder.toString().toLowerCase();
+        return s.equals(builder.reverse().toString().toLowerCase());
+
+//        int left = 0;
+//        int right = s.length() - 1;
+//        //比对每一个字符
+//        while(left < right){
+//            if(s.charAt(left) != s.charAt(right)){
+//                return false;
+//            }
+//            left++;
+//            right--;
+//        }
+//        return true;
+    }
+
+    private static String leetCode168(int cn) {
+        StringBuilder sb = new StringBuilder();
+        while (cn > 0) {
+            cn--;
+            sb.append((char) (cn % 26 + 'A'));
+            cn /= 26;
+        }
+        sb.reverse();
+        return sb.toString();
+    }
+
+    private static int leetCode169() {
+        int[] nums = new int[]{3, 2, 3};
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.get(num) != null) {
+                map.put(num, map.get(num) + 1);
+                if (map.get(num) > nums.length / 2) {
+                    return num;
+                }
+            } else {
+                map.put(num, 1);
+            }
+        }
+        return 0;
+    }
+
+    //171. Excel 表列序号
+    private static int leetCode171() {
+        String s = "ZY";
+        int sum = 0;
+        int multiple = (int) Math.pow(26, s.length() - 1);
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            sum += (c - 'A' + 1) * multiple;
+            multiple /= 26;
+        }
+        return sum;
+    }
+
+    //移动0
+    private static int[] leetCode283() {
+        int[] nums = new int[]{0, 1, 0, 3, 12};
+//        int[] nums = new int[]{1,0,1};
+        if (nums.length == 0) {
+            return new int[0];
+        }
+        int tmp = 0; //上一个元素所在的位置
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == 0) {
+                if (nums[i + 1] != 0) {
+                    nums[tmp] = nums[i + 1];
+                    nums[i + 1] = 0;
+                    tmp += 1;
+                }
+            } else {
+                tmp += 1;
+            }
+        }
+        return nums;
+    }
 
     public static void main(String[] args) {
-
+        System.out.println(Arrays.toString(leetCode283()));
     }
 }
