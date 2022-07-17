@@ -122,6 +122,44 @@ public class TenWeek {
         return nums;
     }
 
+    public void moveZeroes(int[] nums) {
+        //1.check
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        //2.init
+        int first = 0;
+        int second = 0;
+        //3.遍历
+        while (first < nums.length) {
+            if (nums[first] != 0) {
+                nums[second++] = nums[first];
+            }
+            ++first;
+        }
+        //3.对非零元素后面补零
+        for (int i = second; i < nums.length; ++i) {
+            nums[i] = 0;
+        }
+    }
+
+
+    //169. 多数元素
+    private static int majorityElement(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.get(num) != null) {
+                map.put(num, map.get(num) + 1);
+                if (map.get(num) > nums.length / 2) {
+                    return num;
+                }
+            } else {
+                map.put(num, 1);
+            }
+        }
+        return nums[0];
+    }
+
     public static void main(String[] args) {
         System.out.println(Arrays.toString(leetCode283()));
     }
