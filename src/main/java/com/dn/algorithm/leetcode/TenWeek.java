@@ -3,7 +3,6 @@ package com.dn.algorithm.leetcode;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -162,7 +161,17 @@ public class TenWeek {
 
     //todo:dingning 2022/7/19 下午 11:42  相关算法的解法优化，以及上次提及的几种解题思路
 
+    //输入：n = 00000010100101000001111010011100
+    //输出：964176192 (00111001011110000010100101000000)
+    private static int leetCode190(){
+        String s = "00111001011110000010100101000000";
+        return Integer.parseInt(s,2);
+    }
+
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(leetCode283()));
+        String s = "00000010100101000001111010011100";
+        Integer a = 133434;
+        s = String.valueOf(a);
+        System.out.println(Integer.parseInt(new StringBuilder().append(s).reverse().toString(),2));
     }
 }
