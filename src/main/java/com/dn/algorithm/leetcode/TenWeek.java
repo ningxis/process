@@ -163,15 +163,39 @@ public class TenWeek {
 
     //输入：n = 00000010100101000001111010011100
     //输出：964176192 (00111001011110000010100101000000)
-    private static int leetCode190(){
+    private static int leetCode190() {
         String s = "00111001011110000010100101000000";
-        return Integer.parseInt(s,2);
+        System.out.println(Integer.parseInt(new StringBuilder().append(s).reverse().toString(), 2));
+        return Integer.parseInt(s, 2);
+
+    }
+
+    private static boolean leetCode202(int n) {
+        return checkHappy(n,new ArrayList<>());
+    }
+
+    private static boolean checkHappy(int n,ArrayList<Integer> list){
+        //要找到递归结束的条件，如果一直循环则返回false
+        if (n == 1) {
+            return true;
+        }
+        if (list.contains(n)) {
+            return false;
+        } else {
+            list.add(n);
+        }
+        //求和
+        int sum = (n % 10) * (n % 10);
+        while (n / 10 > 0) {
+            n = n / 10;
+            sum = sum + (n % 10) * (n % 10);//往前递推的和平方
+        }
+        n = sum;
+        return checkHappy(n,list);
     }
 
     public static void main(String[] args) {
-        String s = "00000010100101000001111010011100";
-        Integer a = 133434;
-        s = String.valueOf(a);
-        System.out.println(Integer.parseInt(new StringBuilder().append(s).reverse().toString(),2));
+        System.out.println(leetCode202(3));
+
     }
 }
