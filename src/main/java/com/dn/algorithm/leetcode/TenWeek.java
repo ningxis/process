@@ -1,6 +1,7 @@
 package com.dn.algorithm.leetcode;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dn.bean.ListNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -171,10 +172,10 @@ public class TenWeek {
     }
 
     private static boolean leetCode202(int n) {
-        return checkHappy(n,new ArrayList<>());
+        return checkHappy(n, new ArrayList<>());
     }
 
-    private static boolean checkHappy(int n,ArrayList<Integer> list){
+    private static boolean checkHappy(int n, ArrayList<Integer> list) {
         //要找到递归结束的条件，如果一直循环则返回false
         if (n == 1) {
             return true;
@@ -191,11 +192,40 @@ public class TenWeek {
             sum = sum + (n % 10) * (n % 10);//往前递推的和平方
         }
         n = sum;
-        return checkHappy(n,list);
+        return checkHappy(n, list);
+    }
+
+    private static ListNode<Integer> leetCode203(ListNode<Integer> head, int val) {
+        head = new ListNode<>(7);
+        head.next = new ListNode<>(7);
+        head.next.next = new ListNode<>(7);
+        head.next.next.next = new ListNode<>(7);
+        head.next.next.next.next = new ListNode<>(4);
+        head.next.next.next.next.next = new ListNode<>(5);
+        head.next.next.next.next.next.next = new ListNode<>(6);
+        if (head == null) {
+            return null;
+        }
+        /** ListNode<Integer> dummyHead = new ListNode<>(0);
+         dummyHead.next = head;
+         ListNode<Integer> cur = dummyHead;
+         while (cur.next != null) {
+         if (cur.next.value == val) {
+         cur.next = cur.next.next;
+         } else {
+         cur = cur.next;
+         }
+         }
+
+         return dummyHead.next;*/
+
+        //递归写法，很难想到
+        head.next = leetCode203(head.next, val);
+        return head.value == val ? head.next : head;
+
     }
 
     public static void main(String[] args) {
-        System.out.println(leetCode202(3));
-
+        System.out.println(leetCode203(null, 7));
     }
 }
