@@ -225,7 +225,49 @@ public class TenWeek {
 
     }
 
+    private static boolean leetCode205(String s, String t) {
+        s = "bbbaaaba";
+        t = "aaabbbba";
+        if (s.length() == 0 || t.length() == 0) {
+            return false;
+        }
+        //每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。
+        HashMap<Character, Character> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!map.containsKey(c)) {
+                if (map.containsValue(t.charAt(i))) {
+                    return false;
+                }
+                map.put(c, t.charAt(i));
+            }
+            if (!(t.charAt(i) == c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean leetCode219(int[] nums, int k) {
+        nums = new int[]{1, 0, 1, 1};
+        k = 1;
+        //判定重复元素出现的位置
+        if (nums.length == 0) {
+            return false;
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                if (Math.abs(i - map.get(nums[i])) <= k) {
+                    return true;
+                }
+            }
+            map.put(nums[i], i);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        System.out.println(leetCode203(null, 7));
+        System.out.println(leetCode219(null, 0));
     }
 }
