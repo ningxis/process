@@ -267,6 +267,7 @@ public class TenWeek {
         return false;
     }
 
+    //todo:dingning 2022/7/22 下午 11:29  需要优化,时间复杂度太高且适配不了unicode字符
     private static boolean leetCode242(String s, String t){
         s = "rat";
         t = "car";
