@@ -172,10 +172,10 @@ public class TenWeek {
     }
 
     private static boolean leetCode202(int n) {
-        return checkHappy(n, new ArrayList<>());
+        return checkHappy(n,new ArrayList<>());
     }
 
-    private static boolean checkHappy(int n, ArrayList<Integer> list) {
+    private static boolean checkHappy(int n,ArrayList<Integer> list){
         //要找到递归结束的条件，如果一直循环则返回false
         if (n == 1) {
             return true;
@@ -267,7 +267,35 @@ public class TenWeek {
         return false;
     }
 
+    private static boolean leetCode242(String s, String t){
+        s = "rat";
+        t = "car";
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c,map.get(c) + 1);
+            } else {
+                map.put(c,1);
+            }
+        }
+        for (int i = 0; i < t.length(); i++){
+            char c = t.charAt(i);
+            if(map.containsKey(c)){
+                if(map.get(c) == 1){
+                    map.remove(c);
+                }else{
+                    map.put(c,map.get(c) - 1);
+                }
+            } else {
+                return false;
+            }
+        }
+        return map.size() == 0;
+    }
+
     public static void main(String[] args) {
+        System.out.println(leetCode242("",""));
         System.out.println(leetCode219(null, 0));
     }
 }
