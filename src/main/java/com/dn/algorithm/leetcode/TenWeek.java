@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dn.bean.ListNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -295,8 +296,10 @@ public class TenWeek {
         return map.size() == 0;
     }
 
+
+
     public static void main(String[] args) {
-        System.out.println(leetCode242("",""));
-        System.out.println(leetCode219(null, 0));
+        boolean[] hash = new boolean[10];
+        System.out.println(Arrays.toString(new boolean[10]));
     }
 }
