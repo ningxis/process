@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.dn.bean.ListNode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -173,10 +172,10 @@ public class TenWeek {
     }
 
     private static boolean leetCode202(int n) {
-        return checkHappy(n,new ArrayList<>());
+        return checkHappy(n, new ArrayList<>());
     }
 
-    private static boolean checkHappy(int n,ArrayList<Integer> list){
+    private static boolean checkHappy(int n, ArrayList<Integer> list) {
         //要找到递归结束的条件，如果一直循环则返回false
         if (n == 1) {
             return true;
@@ -269,25 +268,25 @@ public class TenWeek {
     }
 
     //todo:dingning 2022/7/22 下午 11:29  需要优化,时间复杂度太高且适配不了unicode字符
-    private static boolean leetCode242(String s, String t){
+    private static boolean leetCode242(String s, String t) {
         s = "rat";
         t = "car";
-        HashMap<Character,Integer> map = new HashMap<>();
-        for (int i = 0; i < s.length(); i++){
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(map.containsKey(c)){
-                map.put(c,map.get(c) + 1);
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) + 1);
             } else {
-                map.put(c,1);
+                map.put(c, 1);
             }
         }
-        for (int i = 0; i < t.length(); i++){
+        for (int i = 0; i < t.length(); i++) {
             char c = t.charAt(i);
-            if(map.containsKey(c)){
-                if(map.get(c) == 1){
+            if (map.containsKey(c)) {
+                if (map.get(c) == 1) {
                     map.remove(c);
-                }else{
-                    map.put(c,map.get(c) - 1);
+                } else {
+                    map.put(c, map.get(c) - 1);
                 }
             } else {
                 return false;
@@ -296,10 +295,44 @@ public class TenWeek {
         return map.size() == 0;
     }
 
+    //反转字符串
+    private static void leetCode344(char[] s) {
+        s = new char[]{'h', 'e', 'l', 'l', 'o'};
+        int left = 0;
+        int right = s.length - 1;
+        char tmp;
+        while (left < right) {
+            tmp = s[left];
+            s[left] = s[right];
+            s[right] = tmp;
+            left++;
+            right--;
+        }
+    }
 
+    private static boolean leetCode290(String pattern, String s){
+        pattern = "abba";
+        s = "dog cat cat fish";
+        if(pattern.length() == 0 || s.length() == 0){
+            return false;
+        }
+        HashMap<Character, String> map = new HashMap<>();
+        String[] chars = s.split(" ");
+        if(pattern.length() != chars.length){
+            return false;
+        }
+        for (int i = 0; i < pattern.length(); i++){
+            if( !map.containsKey(pattern.charAt(i)) && !map.containsValue(chars[i])){
+                map.put(pattern.charAt(i), chars[i]);
+            }
+            if(!chars[i].equals(map.get(pattern.charAt(i)))){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
-        boolean[] hash = new boolean[10];
-        System.out.println(Arrays.toString(new boolean[10]));
+        System.out.println(leetCode290("",""));
     }
 }
