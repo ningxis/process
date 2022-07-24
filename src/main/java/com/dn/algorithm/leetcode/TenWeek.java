@@ -332,7 +332,23 @@ public class TenWeek {
         return true;
     }
 
+    private static boolean leetCode342(int n){
+        if(n != 0 && n % 3 == 1){
+            n /= 4;
+        }
+        return n == 1;
+    }
+
+    private static void yu(){
+        //按位与计算
+        System.out.println(2 << 3);// 2 * 2 * 2 * 2 = 16
+        System.out.println(3 << 3);// 3 * 2 * 2 * 2 = 24
+        System.out.println(4 << 2 == 4 * 4);// true
+        System.out.println(2 << 8 == 2 * 4 * 4 * 4 * 4);// true
+        System.out.println(3 << 6 == 3 * 4 * 4 * 4);// true
+    }
+
     public static void main(String[] args) {
-        System.out.println(leetCode290("",""));
+        yu();
     }
 }
