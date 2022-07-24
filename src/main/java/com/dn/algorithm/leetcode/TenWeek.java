@@ -3,9 +3,7 @@ package com.dn.algorithm.leetcode;
 import com.alibaba.fastjson.JSONObject;
 import com.dn.bean.ListNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author dingning
@@ -310,36 +308,36 @@ public class TenWeek {
         }
     }
 
-    private static boolean leetCode290(String pattern, String s){
+    private static boolean leetCode290(String pattern, String s) {
         pattern = "abba";
         s = "dog cat cat fish";
-        if(pattern.length() == 0 || s.length() == 0){
+        if (pattern.length() == 0 || s.length() == 0) {
             return false;
         }
         HashMap<Character, String> map = new HashMap<>();
         String[] chars = s.split(" ");
-        if(pattern.length() != chars.length){
+        if (pattern.length() != chars.length) {
             return false;
         }
-        for (int i = 0; i < pattern.length(); i++){
-            if( !map.containsKey(pattern.charAt(i)) && !map.containsValue(chars[i])){
+        for (int i = 0; i < pattern.length(); i++) {
+            if (!map.containsKey(pattern.charAt(i)) && !map.containsValue(chars[i])) {
                 map.put(pattern.charAt(i), chars[i]);
             }
-            if(!chars[i].equals(map.get(pattern.charAt(i)))){
+            if (!chars[i].equals(map.get(pattern.charAt(i)))) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean leetCode342(int n){
-        if(n != 0 && n % 3 == 1){
+    private static boolean leetCode342(int n) {
+        if (n != 0 && n % 3 == 1) {
             n /= 4;
         }
         return n == 1;
     }
 
-    private static void yu(){
+    private static void yu() {
         //按位与计算
         System.out.println(2 << 3);// 2 * 2 * 2 * 2 = 16
         System.out.println(3 << 3);// 3 * 2 * 2 * 2 = 24
@@ -348,7 +346,32 @@ public class TenWeek {
         System.out.println(3 << 6 == 3 * 4 * 4 * 4);// true
     }
 
+    private static int[] leetCode349() {
+        int[] nums1 = new int[]{4,7,9,7,6,7};
+        int[] nums2 = new int[]{5,0,0,6,1,6,2,2,4};
+        if (nums1.length == 0 || nums2.length == 0) {
+            return new int[]{};
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums1) {
+            set.add(num);
+        }
+        Set<Integer> resultSet = new HashSet<>();
+        for (int num : nums2) {
+            if (set.contains(num)) {
+                resultSet.add(num);
+            }
+        }
+        int[] result = new int[resultSet.size()];
+        int i = 0;
+        for (Integer num : resultSet){
+            result[i] = num;
+            i++;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        yu();
+        System.out.println(Arrays.toString(leetCode349()));;
     }
 }
