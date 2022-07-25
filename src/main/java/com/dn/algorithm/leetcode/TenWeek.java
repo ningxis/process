@@ -371,22 +371,18 @@ public class TenWeek {
         return result;
     }
 
+    //2的幂
     private static boolean leetCode231(int n){
-        n = 2147483646;
-        if(n == 1){
-            return true;
+        while(n > 0 && n % 2 == 0){
+            n /= 2;
         }
-        if( n % 2 != 0){
-            return false;
-        }
-        int i = 2;
-        while ( i < n){
-            i = i * 2;
-        }
-        return i == n;
+        return 1 == n;
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(leetCode349()));;
+        for (int i = 0; i < 100; i++) {
+            System.out.println(i + String.valueOf(leetCode231(i)));
+        }
+
     }
 }
