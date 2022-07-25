@@ -3,6 +3,9 @@ package com.dn.algorithm.leetcode;
 import com.alibaba.fastjson.JSONObject;
 import com.dn.bean.ListNode;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -373,6 +376,9 @@ public class TenWeek {
 
     //2的幂
     private static boolean leetCode231(int n){
+        for (int i = 0; i < 100; i++) {
+            System.out.println(i + String.valueOf(leetCode231(i)));
+        }
         while(n > 0 && n % 2 == 0){
             n /= 2;
         }
@@ -380,9 +386,44 @@ public class TenWeek {
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(i + String.valueOf(leetCode231(i)));
+        String s = "SAP\n" +
+                "快手\n" +
+                "鲁大师\n" +
+                "多益网络\n" +
+                "腾讯\n" +
+                "伟伟有限责任公司";
+        String[] strings = s.split("\n");
+//        try {
+//            InputStream inputStream = Files.newInputStream(Paths.get("C:/Users/ningxi/Desktop/company.txt"));
+//            OutputStream outputStream = Files.newOutputStream(Paths.get("C:/Users/ningxi/Desktop/companyCopy.txt"));
+//            int bytesRead = 0;
+//            byte[] buffer = new byte[8192];
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//            inputStream.close();
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+
+        try{
+            FileReader fr = new FileReader("C:/Users/ningxi/Desktop/company.txt");
+            FileWriter fw = new FileWriter("C:/Users/ningxi/Desktop/companyCopy.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String temp="";
+            Set<String> set = new HashSet<>();
+            //readLine()：表示读取一行文本。
+            while ((temp=br.readLine())!=null){
+                set.add(temp);
+            }
+            for (String s1 : set) {
+                fw.append(s1).append("\n");
+            }
+            System.out.println(set);
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
+        System.out.println(Arrays.toString(strings));
     }
 }
