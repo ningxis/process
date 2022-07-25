@@ -371,6 +371,21 @@ public class TenWeek {
         return result;
     }
 
+    private static boolean leetCode231(int n){
+        n = 2147483646;
+        if(n == 1){
+            return true;
+        }
+        if( n % 2 != 0){
+            return false;
+        }
+        int i = 2;
+        while ( i < n){
+            i = i * 2;
+        }
+        return i == n;
+    }
+
     public static void main(String[] args) {
         System.out.println(Arrays.toString(leetCode349()));;
     }
