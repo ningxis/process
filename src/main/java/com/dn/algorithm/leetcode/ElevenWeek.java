@@ -33,7 +33,21 @@ public class ElevenWeek {
         }
     }
 
+    //原始流写法
+    private static void convertFile(){
+        String fileName = "D:/小远/pictures/companyTest2.txt";
+        try(FileOutputStream fos = new FileOutputStream(fileName);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);){
+            bw.write("Hello World -创建文件!!");
+            bw.flush();
+        } catch ( IOException e){
+            System.out.println(e);
+        }
+
+    }
+
     public static void main(String[] args) {
-        fileTransfer();
+        convertFile();
     }
 }
