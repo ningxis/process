@@ -1,5 +1,7 @@
 package com.dn.algorithm.leetcode;
 
+import com.dn.bean.ListNode;
+
 import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,6 +47,23 @@ public class ElevenWeek {
             System.out.println(e);
         }
 
+    }
+
+    //迭代法反转链表
+    private static ListNode<Integer> convertListNode(ListNode<Integer> head){
+
+        if(head == null){
+            return head;
+        }
+        ListNode<Integer> pre = null;
+        ListNode<Integer> cur = head;
+        while(cur != null){
+            ListNode<Integer> node = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = node;
+        }
+        return pre;
     }
 
     public static void main(String[] args) {
