@@ -67,7 +67,7 @@ public class ElevenWeek {
     }
 
 
-    //todo:dingning 2022/7/30 下午 05:43  out
+    //todo:dingning 2022/7/30 下午 05:43  out 指定英语计划每天todo、算法整理题目
     public static void main(String[] args) {
         convertFile();
     }
