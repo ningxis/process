@@ -68,6 +68,7 @@ public class ElevenWeek {
 
 
     //todo:dingning 2022/7/30 下午 05:43  out 指定英语计划每天todo、算法整理题目
+    //https://www.bilibili.com/video/BV1Dk4y1q781 英语口语学习 当下的力量，做好当下，明天的事明天再说
     public static void main(String[] args) {
         convertFile();
     }
