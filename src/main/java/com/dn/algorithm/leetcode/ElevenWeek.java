@@ -98,9 +98,45 @@ public class ElevenWeek {
         return ret;
     }
 
+    private static String leetCode345(String s){
+        int n = s.length();
+        char[] arr = s.toCharArray();
+        int i = 0, j = n - 1;
+        while (i < j) {
+            while (i < n && !isVowel(arr[i])) {
+                ++i;
+            }
+            while (j > 0 && !isVowel(arr[j])) {
+                --j;
+            }
+            if (i < j) {
+                swap(arr, i, j);
+                ++i;
+                --j;
+            }
+        }
+        return new String(arr);
+    }
+
+    //判断字符是否元音，找到出现位置的index
+    public static boolean isVowel(char ch) {
+        return "aeiouAEIOU".indexOf(ch) >= 0;
+    }
+
+    public static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+
     //todo:dingning 2022/7/30 下午 05:43  out 指定英语计划每天todo、算法整理题目
     //https://www.bilibili.com/video/BV1Dk4y1q781 英语口语学习 当下的力量，做好当下，明天的事明天再说
     public static void main(String[] args) {
-        leetCode448();
+        System.out.println("321312".indexOf('1'));
+        System.out.println("321312".indexOf('2'));
+        System.out.println("321312".indexOf('3'));
+        System.out.println("321312".indexOf('4'));
+//        leetCode448();
     }
 }
