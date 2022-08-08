@@ -25,6 +25,34 @@ public class ThirteenWeek {
                 }
             }
             return false;
+//        System.out.println(leetCode367(2147483647));//不用long的话会死循环
+    }
+
+    // 反转字符串中的元音字母,双指针
+    private static String leetCode345(String s){
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = s.length() - 1;
+        //这里的双指针边界问题要判清楚
+        while(left < right){
+            while(left < right && !isVowel(chars[left])){
+                left++;
+            }
+            while(left > right && !isVowel(chars[right])){
+                right--;
+            }
+            char a = chars[left];
+            chars[left] = chars[right];
+            chars[right] = a;
+            left++;
+            right--;
+        }
+        return new String(chars);
+    }
+
+
+    private static boolean isVowel(char c){
+       return "aeiouAEIOU".indexOf(c) >= 0; //判断是否是元音字符
     }
 
 
@@ -32,6 +60,6 @@ public class ThirteenWeek {
 //        for (int i = 0; i < 100; i++) {
 //            System.out.println( i+ "" + leetCode367(i));
 //        }
-        System.out.println(leetCode367(2147483647));
+        System.out.println(leetCode345("hello"));
     }
 }
