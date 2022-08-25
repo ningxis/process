@@ -1,5 +1,10 @@
 package com.dn.algorithm.leetcode;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author skyline
  * @version 1.0
@@ -96,10 +101,15 @@ public class ThirteenWeek {
             return add(sum, carry);
     }
 
+    private static boolean leetCode383(String ransomNote,String magazine){
+        for (int i = 0; i < magazine.length(); i++){
+            ransomNote.replace(String.valueOf(magazine.charAt(i)),"");
+        }
+        System.out.println(ransomNote);
+        return true;
+    }
+
     public static void main(String[] args) {
-//        for (int i = 0; i < 100; i++) {
-//            System.out.println( i+ "" + leetCode367(i));
-//        }
-        System.out.println(leetCode191(1));
+        System.out.println(leetCode383("aa","aab"));
     }
 }
