@@ -1,9 +1,8 @@
 package com.dn.algorithm.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author skyline
@@ -109,7 +108,13 @@ public class ThirteenWeek {
         return true;
     }
 
-    public static void main(String[] args) {
-        System.out.println(leetCode383("aa","aab"));
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String loginTime = "2022-8-5 10:13:55";
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH,-1);
+        if(calendar.getTime().getTime() > dft.parse(loginTime).getTime()){
+            System.out.println("____________一个月之前登陆了__________");
+        }
     }
 }
