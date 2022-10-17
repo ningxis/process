@@ -3,7 +3,9 @@ package com.dn.algorithm.leetcode;
 import com.dn.bean.ListNode;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -67,9 +69,74 @@ public class ElevenWeek {
     }
 
 
+    private static List<Integer> leetCode448(){
+        int[] nums = new int[]{4,3,2,7,8,2,3,1};
+//        List<Integer> res = new ArrayList<>();
+//        HashSet<Integer> set = new HashSet<>();
+//        for (int i = 0; i <nums.length; i++) {
+//            set.add(nums[i]);
+//        }
+//        for (int i = 1; i <= nums.length; i++) {
+//            if(set.add(i)){
+//                res.add(i);
+//            }
+//        }
+//        return res;
+        int n = nums.length;
+        for (int num : nums) {
+            int x = (num - 1) % n; //得到num值对应的下标
+            nums[x] += n;   //num-1下标位置的数+n放入nums数组中
+        }
+        List<Integer> ret = new ArrayList<Integer>();
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= n) {
+                //因为值是[1,n]而第一个for循环经过if判断后筛选得到
+                //的是有问题的下标即从0开始但值从1，所以下面用i+1
+                ret.add(i + 1);//i位置上的值i+1未曾出现过
+            }
+        }
+        return ret;
+    }
+
+    private static String leetCode345(String s){
+        int n = s.length();
+        char[] arr = s.toCharArray();
+        int i = 0, j = n - 1;
+        while (i < j) {
+            while (i < n && !isVowel(arr[i])) {
+                ++i;
+            }
+            while (j > 0 && !isVowel(arr[j])) {
+                --j;
+            }
+            if (i < j) {
+                swap(arr, i, j);
+                ++i;
+                --j;
+            }
+        }
+        return new String(arr);
+    }
+
+    //判断字符是否元音，找到出现位置的index
+    public static boolean isVowel(char ch) {
+        return "aeiouAEIOU".indexOf(ch) >= 0;
+    }
+
+    public static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+
     //todo:dingning 2022/7/30 下午 05:43  out 指定英语计划每天todo、算法整理题目
     //https://www.bilibili.com/video/BV1Dk4y1q781 英语口语学习 当下的力量，做好当下，明天的事明天再说
     public static void main(String[] args) {
-        convertFile();
+        System.out.println("321312".indexOf('1'));
+        System.out.println("321312".indexOf('2'));
+        System.out.println("321312".indexOf('3'));
+        System.out.println("321312".indexOf('4'));
+//        leetCode448();
     }
 }
