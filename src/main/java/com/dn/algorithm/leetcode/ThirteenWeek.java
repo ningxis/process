@@ -1,8 +1,11 @@
 package com.dn.algorithm.leetcode;
 
+import com.alibaba.fastjson.JSON;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author skyline
@@ -109,12 +112,9 @@ public class ThirteenWeek {
     }
 
     public static void main(String[] args) throws ParseException {
-        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String loginTime = "2022-8-5 10:13:55";
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH,-1);
-        if(calendar.getTime().getTime() > dft.parse(loginTime).getTime()){
-            System.out.println("____________一个月之前登陆了__________");
-        }
+        String regx = "/error|/socket.io|/put/password|/index.html";
+        Pattern p = Pattern.compile(regx);
+        String uri = "staff/put/password.do";
+        System.out.println(p.matcher(uri).find());
     }
 }
