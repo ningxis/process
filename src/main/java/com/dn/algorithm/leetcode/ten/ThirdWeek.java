@@ -80,7 +80,7 @@ public class ThirdWeek {
         }
         return true;
     }
-    //给出环形链表的环
+    //找出环形链表的环
     private static ListNode getCircle(ListNode node){
         if(node == null || node.next == null){
             return null;
@@ -106,6 +106,7 @@ public class ThirdWeek {
         return null;
     }
 
+    //坚持才是胜利 2022年10月19日23:50:43
     public static void main(String[] args) {
         int[] ints = new int[]{2, 7, 11, 15};
         int[] ints1 = leetCode1(ints, 14);
