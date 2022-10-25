@@ -193,8 +193,9 @@ public class ThirdWeek {
 
 
     private static int[] twoNumbers(int[] nums, int target){
+        //todo:dingning 2022/10/22 下午 02:51  判空
         if(nums.length == 0){
-            return new int[0];
+            return new int[]{-1,-1};
         }
         HashMap<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++){
@@ -205,13 +206,13 @@ public class ThirdWeek {
                 map.put(nums[i], i);
             }
         }
-        return new int[0];
+        return new int[]{-1,-1};
     }
 
     //迭代
     private ListNode reverse1(ListNode node){
         if(node == null){
-            return null;
+            return node;
         }
         ListNode pre = null;
         ListNode cur = node;
@@ -257,7 +258,7 @@ public class ThirdWeek {
         }
         ListNode slow = node;
         ListNode fast = node;
-        while(fast != slow){
+        while(fast != null){
             slow = slow.next;
             if(fast == null || fast.next == null){
                 return null;

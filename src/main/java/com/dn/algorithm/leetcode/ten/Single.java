@@ -42,5 +42,7 @@ public class Single {
         return single2;
     }
 
+    //todo:dingning 2022/10/22 下午 02:49  volatile、if
+
 
 }
