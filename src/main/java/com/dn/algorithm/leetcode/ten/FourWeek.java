@@ -1,8 +1,6 @@
 package com.dn.algorithm.leetcode.ten;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 
@@ -16,6 +14,7 @@ public class FourWeek {
         testOkHttp3();
     }
 
+    //同步回调GET
     private static void testOkHttp3(){
         OkHttpClient client = new OkHttpClient();
         String url = "https://rms.utry-robot.com";
@@ -30,6 +29,27 @@ public class FourWeek {
                 e.printStackTrace();
             }
         }
+
+    }
+
+
+    //异步回调GET
+    private static void asyncOkHttp3(){
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://rms.utry-robot.com";
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("调用失败回调");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("异步回调成功" + response.body().string());
+            }
+        });
 
     }
 }
