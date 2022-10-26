@@ -42,6 +42,10 @@
             <groupId>junit</groupId>
             <version>4.13.1</version>
         </dependency>
+        <dependency>
+            <artifactId>okhttp</artifactId>
+            <groupId>com.squareup.okhttp3</groupId>
+        </dependency>
     </dependencies>
 
     <build>
