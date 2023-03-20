@@ -1,5 +1,9 @@
 package com.dn.algorithm.leetcode.march;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author dingning
  * @date 2023/3/15 下午 07:11
@@ -91,6 +95,87 @@ public class LeetCode {
             }
         }
         return -1;
+    }
+
+
+    //在排序数组中查找元素的第一个和最后一个位置
+    private static int[] searchRange(int[] nums, int target) {
+        int left = findIndex(nums, target - 1);
+        int right = findIndex(nums, target) - 1;
+        if(left <= right && nums[left] == target){
+            return new int[]{left, right};
+        }
+        return new int[]{-1, -1};
+
+    }
+
+    //查找target目标数据下标
+    private static int findIndex(int[] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        int ans = nums.length;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] > target){
+                ans = mid;
+                right = mid - 1;
+            } else{
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    private static List<List<Integer>> res = new ArrayList<>();
+
+    //组合总和
+    public List<List<Integer>> combinationSumCopy(int[] candidates, int target) {
+        if(candidates == null || candidates.length == 0){
+            return res;
+        }
+        backTrackCopy(new ArrayList<>(), candidates, target, 0, 0);
+        return res;
+
+    }
+
+    private static void backTrackCopy(List<Integer> path, int[] candidates, int target, int sum, int start){
+        if(sum == target){
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i = start; i < candidates.length; i++){
+            int temp = sum + candidates[i];
+            if(target >= temp){
+                path.add(candidates[i]);
+                backTrackCopy(path, candidates, target, temp,i);
+                path.remove(path.size() - 1);
+            } else{
+                break;
+            }
+        }
+    }
+
+
+    //全排列
+    public List<List<Integer>> permute(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return res;
+        }
+        backTrack(nums, 0, new ArrayList<>());
+        return res;
+
+
+    }
+
+    private static void backTrack(int[] nums, int start, List<Integer> path){
+        if(start == nums.length){
+            res.add(new ArrayList<>(path));
+        }
+        for (int i = start; i < nums.length; i++) {
+            path.add(nums[i]);
+            backTrack(nums, i + 1, path);
+            path.remove(path.size() - 1);
+        }
     }
 
 }
