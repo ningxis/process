@@ -1,8 +1,6 @@
 package com.dn.algorithm.leetcode.march;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author dingning
@@ -161,21 +159,66 @@ public class LeetCode {
         if(nums == null || nums.length == 0){
             return res;
         }
-        backTrack(nums, 0, new ArrayList<>());
+        boolean[] booleans = new boolean[nums.length];
+        backTrack(nums, 0, new ArrayList<>(), booleans);
         return res;
 
 
     }
 
-    private static void backTrack(int[] nums, int start, List<Integer> path){
+    private static void backTrack(int[] nums, int start, List<Integer> path, boolean[] booleans){
         if(start == nums.length){
             res.add(new ArrayList<>(path));
+            return;
         }
-        for (int i = start; i < nums.length; i++) {
-            path.add(nums[i]);
-            backTrack(nums, i + 1, path);
-            path.remove(path.size() - 1);
+        for (int i = 0; i < nums.length; i++) {
+            if(!booleans[i]){
+                path.add(nums[i]);
+                booleans[i] = true;
+                backTrack(nums, start + 1, path, booleans);
+                booleans[i] = false;
+                path.remove(path.size() - 1);
+            }
+
         }
+    }
+
+    //字母异位词分组
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        if(strs.length < 1){
+            return res;
+        }
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if (map.containsKey(key)){
+                map.get(key).add(str);
+            } else {
+                List<String> list = new ArrayList<>();
+                list.add(str);
+                map.put(key, list);
+            }
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    //55. 跳跃游戏
+    public static boolean canJump(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return false;
+        }
+        int k = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int temp = nums[i] + i;
+            k = Math.max(k , temp);
+            if(k >= nums.length - 1){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
