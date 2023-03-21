@@ -9,11 +9,6 @@ import java.util.*;
 public class LeetCode {
 
 
-    //hello world
-    public static void main(String[] args) {
-        System.out.println(search(new int[]{4, 5, 6, 7, 0, 1, 2}, 0));
-    }
-
     private static int[] countBits(int n){
         int[] bits = new int[n + 1];
         for(int i = 0; i < bits.length; i++){
@@ -219,6 +214,96 @@ public class LeetCode {
             }
         }
         return false;
+    }
+
+    //颜色分类
+    public static void sortColors(int[] nums) {
+        int n0 = 0;
+        int n1 = 0;
+        int n2 = 0;
+        for (int num : nums) {
+            if(num == 0) n0++;
+            if(num == 1) n1++;
+            if(num == 2) n2++;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if(n0 > 0){
+                nums[i] = 0;
+                n0--;
+            } else if (n1 > 0){
+                nums[i] = 1;
+                n1--;
+            } else {
+                nums[i] = 2;
+                n2--;
+            }
+        }
+    }
+
+    private static int[] sortColors1(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        int cur = 0;
+        while(cur <= right){
+
+            if(nums[cur] > 1){
+                int temp = nums[right];
+                nums[right] = nums[cur];
+                nums[cur] = temp;
+                System.out.println("交换了2");
+                right--;
+            } else if(nums[cur] < 1){
+                int temp = nums[left];
+                nums[left] = nums[cur];
+                nums[cur] = temp;
+                System.out.println("交换了0");
+                left++;
+                cur++;
+            } else {
+                cur++;
+            }
+            System.out.println(Arrays.toString(nums) + " left:"+left + " right:" + right + " cur:" + cur);
+        }
+        return nums;
+    }
+
+    //子集
+    private static List<List<Integer>> subsets(int[] nums){
+
+        backTrack2(nums, 0, new ArrayList<>());
+        return res;
+    }
+
+    private static void backTrack2(int[] nums, int start, List<Integer> path){
+
+        res.add(new ArrayList<>(path));
+
+        for(int i = 0; i < nums.length; i++){
+            path.add(nums[i]);
+            backTrack2(nums, start + 1, path);
+            path.remove(path.size() - 1);
+        }
+    }
+
+    //不同的二叉搜索树
+    private static int numTrees(int n){
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i < n + 1; i++){
+            for (int j = 1; j < n + 1; j++){
+                dp[i] += dp[j-1] * dp[i-j];
+            }
+        }
+        return dp[n];
+    }
+
+
+
+
+
+    //hello world
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(sortColors1(new int[]{1, 2, 0, 2, 0, 1, 2})));
     }
 
 }
