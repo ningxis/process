@@ -2,6 +2,7 @@ package com.dn.process.validator;
 
 import com.dn.bean.ProcessApplicationContext;
 import com.dn.exception.ServiceResult;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @description: ip白名单、黑名单校验
  * @date 2022/6/17 9:40
  */
+@Component
 public class IPValidatorProcess implements ValidatorProcess {
 
     public final static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,20 +65,6 @@ public class IPValidatorProcess implements ValidatorProcess {
         return ServiceResult.toSuccessResult();
     }
 
-    public static void main(String[] args) {
-        IPValidatorProcess ipValidatorProcess = new IPValidatorProcess();
-        Map<String, Map<String, Object>> items = new HashMap<>();
-        HashMap<String, Object> timeMap = new HashMap<>();
-        timeMap.put("startTime","2022-05-22");
-        timeMap.put("endTime","2022-06-25");
-        timeMap.put("curTime","2022-6-26");
-        Map<String, Object> ipMap = new HashMap<>();
-        ipMap.put("ip","1.23.45.05");
-        items.put("ip",ipMap);
-        items.put("time",timeMap);
-        ProcessApplicationContext context = new ProcessApplicationContext();
-        context.setItems(items);
-        System.out.println(ipValidatorProcess.process(context));
-    }
+
 
 }
