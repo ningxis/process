@@ -1,5 +1,7 @@
 package com.dn.algorithm.leetcode.march;
 
+import com.dn.bean.TreeNode;
+
 import java.util.*;
 
 /**
@@ -297,7 +299,20 @@ public class LeetCode {
         return dp[n];
     }
 
+    private static TreeNode pre = null;
 
+    //二叉树展开为链表
+    private static void flatten(TreeNode root) {
+        if(root == null){
+            return;
+        }
+        flatten(root.left);
+        flatten(root.right);
+        root.right = pre;
+        root.left = null;
+        pre = root;
+        TreeNode pre = null;
+    }
 
 
 
