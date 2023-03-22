@@ -315,10 +315,56 @@ public class LeetCode {
     }
 
 
+    public static int longestConsecutive(int[] nums) {
+//        if(nums == null || nums.length == 0) {
+//            return 0;
+//        }
+//        Arrays.sort(nums);
+//        int length = 0;
+//        int temp = 0;
+//        for(int i = 1; i < nums.length; i++){
+//            if(nums[i] == nums[i - 1] + 1){
+//                temp++;
+//                length = Math.max(length, temp);
+//            } else if(nums[i] == nums[i - 1]) {
+//                continue;
+//            } else{
+//                temp = 0;
+//            }
+//        }
+//        return length + 1;
+        if(nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return 1;
+        }
+        Arrays.sort(nums);
+        int max = 1;
+        int tempMax = 1;
+        for(int i = 1;i<nums.length;i++){
+            if((nums[i-1]) == nums[i]){
+                continue;
+            }
+            if((nums[i-1] + 1) == nums[i]){
+                tempMax++;
+            }else{
+                max = Math.max(tempMax,max);
+                tempMax = 1;
+            }
+        }
+        max = Math.max(tempMax,max);
+        return max;
+    }
+
+
 
     //hello world
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(sortColors1(new int[]{1, 2, 0, 2, 0, 1, 2})));
+        System.out.println((longestConsecutive(new int[]{100,4,200,1,3,2})));
+        System.out.println((longestConsecutive(new int[]{1,2,0,1})));
+        System.out.println((longestConsecutive(new int[]{0,3,7,2,5,8,4,6,0,1})));
+        System.out.println((longestConsecutive(new int[]{100,4,200,1,3,2})));
     }
 
 }
