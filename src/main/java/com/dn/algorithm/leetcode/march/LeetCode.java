@@ -3,12 +3,13 @@ package com.dn.algorithm.leetcode.march;
 import com.dn.bean.TreeNode;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author dingning
  * @date 2023/3/15 下午 07:11
  **/
-public class LeetCode {
+public class LeetCode extends LinkedHashMap<Integer, Integer> {
 
 
     private static int[] countBits(int n){
@@ -314,6 +315,49 @@ public class LeetCode {
         TreeNode pre = null;
     }
 
+    boolean isBST = true; //外部变量
+
+    //验证二叉搜索树
+    public boolean isValidBST (TreeNode root) {
+        // write code here
+        inOrder(root);
+        return isBST;
+    }
+
+    // 通过遍历+外部变量实现
+    private void inOrder(TreeNode root){
+        if(root == null)
+            return;
+        inOrder(root.left);
+        /* 中序遍历位置 */
+        if(pre != null && pre.val >= root.val){ //不是递增有序
+            isBST = false;
+            return;
+        }
+        pre = root; //当前节点中序遍历结束，变成前一个遍历的节点
+        inOrder(root.right);
+    }
+
+
+
+    //
+    private static void flattenNew(TreeNode root){
+        TreeNode node = new TreeNode(-1);
+        inorder(root, node);
+        return;
+    }
+
+    private static TreeNode inorder(TreeNode root, TreeNode node){
+        if(root == null){
+            return root;
+        }
+        inorder(root.left, node);
+        node.right = root;
+        node = node.right;
+        inorder(root.right, node);
+        return node;
+    }
+
 
     public static int longestConsecutive(int[] nums) {
 //        if(nums == null || nums.length == 0) {
@@ -357,6 +401,45 @@ public class LeetCode {
         return max;
     }
 
+    int cap;
+    LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
+    public LeetCode(int capacity) {
+        this.cap = capacity;
+    }
+
+    public int get(int key) {
+        if (!cache.containsKey(key)) {
+            return -1;
+        }
+        // 将 key 变为最近使用
+        makeRecently(key);
+        return cache.get(key);
+    }
+
+    public void put(int key, int val) {
+        if (cache.containsKey(key)) {
+            // 修改 key 的值
+            cache.put(key, val);
+            // 将 key 变为最近使用
+            makeRecently(key);
+            return;
+        }
+
+        if (cache.size() >= this.cap) {
+            // 链表头部就是最久未使用的 key
+            int oldestKey = cache.keySet().iterator().next();
+            cache.remove(oldestKey);
+        }
+        // 将新的 key 添加链表尾部
+        cache.put(key, val);
+    }
+
+    private void makeRecently(int key) {
+        int val = cache.get(key);
+        // 删除 key，重新插入到队尾
+        cache.remove(key);
+        cache.put(key, val);
+    }
 
 
     //hello world
