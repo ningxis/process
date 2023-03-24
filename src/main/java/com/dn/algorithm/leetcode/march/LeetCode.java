@@ -1,10 +1,8 @@
 package com.dn.algorithm.leetcode.march;
 
-import com.dn.bean.ListNode;
 import com.dn.bean.TreeNode;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author dingning
@@ -548,6 +546,70 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         cur.next = node1 == null ? node2 : node1;
         return head.next;
 
+    }
+
+    //岛屿的最大数量
+    private static int maxAreaOfGrid(char[][] grid){
+        int sum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] == '1'){
+                    dfs(grid, i, j);
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+
+    private static void dfs(char[][] grid, int row, int col){
+        if(!isValid(grid, row, col)){
+            return;
+        }
+        if(grid[row][col] != '1'){
+            return;
+        }
+        grid[row][col] = '2';
+        dfs(grid, row - 1, col);
+        dfs(grid, row + 1, col);
+        dfs(grid, row, col - 1);
+        dfs(grid, row, col + 1);
+    }
+
+
+    //岛屿的最大面积
+    private static int maxAreaOfGrid1(char[][] grid){
+        int max = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] == '1'){
+                    int area = dfs1(grid, i, j);
+                    max = Math.max(max, area);
+                }
+            }
+        }
+        return max;
+    }
+
+    private static int dfs1(char[][] grid, int row, int col){
+        if(!isValid(grid, row, col)){
+            return 1;
+        }
+        if(grid[row][col] != '1'){
+            return 0;
+        }
+        if(grid[row][col] != '0'){
+            return 1;
+        }
+        grid[row][col] = '2';
+        return 1 + dfs1(grid, row - 1, col)
+        + dfs1(grid, row + 1, col)
+        + dfs1(grid, row, col - 1)
+        + dfs1(grid, row, col + 1);
+    }
+
+    private static boolean isValid(char[][] grid, int row, int col){
+        return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
 
 
