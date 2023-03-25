@@ -731,6 +731,27 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return queue.poll();
     }
 
+    //最大正方形
+    public int maximalSquare(char[][] matrix) {
+        if(matrix == null || matrix.length < 1 || matrix[0].length < 1){
+            return 0;
+        }
+        int height = matrix[0].length;
+        int width = matrix.length;
+        int maxSquare = 0;
+        int[][] dp = new int[width + 1][height + 1];
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(matrix[i][j] == '1'){
+                    dp[i + 1][j + 1] = Math.min(Math.min(dp[i][j + 1], dp[i + 1][j]), dp[i][j]) + 1;
+                    maxSquare = Math.max(maxSquare, dp[i + 1][j + 1]);
+                }
+            }
+        }
+        return maxSquare * maxSquare;
+    }
+
+
 
     //hello world
     public static void main(String[] args) {
