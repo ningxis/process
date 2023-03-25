@@ -719,7 +719,17 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return true;
     }
 
-
+    //数组中的第K个最大元素
+    private int findKthLargest(int[] nums, int k){
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int num : nums) {
+            queue.add(num);
+            if(queue.size() > k){
+                queue.poll();
+            }
+        }
+        return queue.poll();
+    }
 
 
     //hello world
