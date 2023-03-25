@@ -720,11 +720,11 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
     }
 
     //数组中的第K个最大元素
-    private int findKthLargest(int[] nums, int k){
+    private int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue<>();
         for (int num : nums) {
             queue.add(num);
-            if(queue.size() > k){
+            if (queue.size() > k) {
                 queue.poll();
             }
         }
@@ -733,16 +733,16 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
 
     //最大正方形
     public int maximalSquare(char[][] matrix) {
-        if(matrix == null || matrix.length < 1 || matrix[0].length < 1){
+        if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
             return 0;
         }
         int height = matrix[0].length;
         int width = matrix.length;
         int maxSquare = 0;
         int[][] dp = new int[width + 1][height + 1];
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
-                if(matrix[i][j] == '1'){
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (matrix[i][j] == '1') {
                     dp[i + 1][j + 1] = Math.min(Math.min(dp[i][j + 1], dp[i + 1][j]), dp[i][j]) + 1;
                     maxSquare = Math.max(maxSquare, dp[i + 1][j + 1]);
                 }
@@ -751,6 +751,30 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return maxSquare * maxSquare;
     }
 
+    //二叉树的最近公共祖先
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            //只要当前根节点是p和q中的任意一个，就返回（因为不能比这个更深了，再深p和q中的一个就没了）
+            return root;
+        }
+        //根节点不是p和q中的任意一个，那么就继续分别往左子树和右子树找p和q
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        //p和q都没找到，那就没有
+        if (left == null && right == null) {
+            return null;
+        }
+        //左子树没有p也没有q，就返回右子树的结果
+        if (left == null) {
+            return right;
+        }
+        //右子树没有p也没有q就返回左子树的结果
+        if (right == null) {
+            return left;
+        }
+        //左右子树都找到p和q了，那就说明p和q分别在左右两个子树上，所以此时的最近公共祖先就是root
+        return root;
+    }
 
 
     //hello world
@@ -761,21 +785,21 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         System.out.println((longestConsecutive(new int[]{100, 4, 200, 1, 3, 2})));
     }
 
-public class ListNode {
-    int val;
-    ListNode next;
+    public class ListNode {
+        int val;
+        ListNode next;
 
-    ListNode() {
-    }
+        ListNode() {
+        }
 
-    ListNode(int val) {
-        this.val = val;
-    }
+        ListNode(int val) {
+            this.val = val;
+        }
 
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
-}
 
 }
