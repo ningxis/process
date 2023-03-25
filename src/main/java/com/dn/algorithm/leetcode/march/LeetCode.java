@@ -498,7 +498,7 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
 
     //排序链表
     public ListNode sortListNew(ListNode head) {
-        if(head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode middleNodeNew = middleNodeNew(head);
@@ -511,30 +511,30 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return mergetTwoListsNew(left, right);
     }
 
-    private ListNode middleNodeNew(ListNode root){
-        if(root == null || root.next == null){
+    private ListNode middleNodeNew(ListNode root) {
+        if (root == null || root.next == null) {
             return root;
         }
         ListNode slow = root;
         ListNode fast = root;
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
         return slow;
     }
 
-    private ListNode mergetTwoListsNew(ListNode node1, ListNode node2){
-        if(node1 == null){
+    private ListNode mergetTwoListsNew(ListNode node1, ListNode node2) {
+        if (node1 == null) {
             return node2;
         }
-        if(node2 == null){
+        if (node2 == null) {
             return node1;
         }
         ListNode head = new ListNode(-1);
         ListNode cur = head;
-        while(node1 != null && node2 != null){
-            if(node1.val < node2.val){
+        while (node1 != null && node2 != null) {
+            if (node1.val < node2.val) {
                 cur.next = node1;
                 node1 = node1.next;
             } else {
@@ -549,11 +549,11 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
     }
 
     //岛屿的最大数量
-    private static int maxAreaOfGrid(char[][] grid){
+    private static int maxAreaOfGrid(char[][] grid) {
         int sum = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if(grid[i][j] == '1'){
+                if (grid[i][j] == '1') {
                     dfs(grid, i, j);
                     sum++;
                 }
@@ -562,11 +562,11 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return sum;
     }
 
-    private static void dfs(char[][] grid, int row, int col){
-        if(!isValid(grid, row, col)){
+    private static void dfs(char[][] grid, int row, int col) {
+        if (!isValid(grid, row, col)) {
             return;
         }
-        if(grid[row][col] != '1'){
+        if (grid[row][col] != '1') {
             return;
         }
         grid[row][col] = '2';
@@ -578,11 +578,11 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
 
 
     //岛屿的最大面积
-    private static int maxAreaOfGrid1(char[][] grid){
+    private static int maxAreaOfGrid1(char[][] grid) {
         int max = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if(grid[i][j] == '1'){
+                if (grid[i][j] == '1') {
                     int area = dfs1(grid, i, j);
                     max = Math.max(max, area);
                 }
@@ -591,24 +591,24 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return max;
     }
 
-    private static int dfs1(char[][] grid, int row, int col){
-        if(!isValid(grid, row, col)){
+    private static int dfs1(char[][] grid, int row, int col) {
+        if (!isValid(grid, row, col)) {
             return 1;
         }
-        if(grid[row][col] != '1'){
+        if (grid[row][col] != '1') {
             return 0;
         }
-        if(grid[row][col] != '0'){
+        if (grid[row][col] != '0') {
             return 1;
         }
         grid[row][col] = '2';
         return 1 + dfs1(grid, row - 1, col)
-        + dfs1(grid, row + 1, col)
-        + dfs1(grid, row, col - 1)
-        + dfs1(grid, row, col + 1);
+                + dfs1(grid, row + 1, col)
+                + dfs1(grid, row, col - 1)
+                + dfs1(grid, row, col + 1);
     }
 
-    private static boolean isValid(char[][] grid, int row, int col){
+    private static boolean isValid(char[][] grid, int row, int col) {
         return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
 
@@ -622,7 +622,6 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         }
         // 2.依赖关系, 依赖当前课程的后序课程
         Map<Integer, List<Integer>> adj = new HashMap<>();
-
 
 
         // 初始化入度和依赖关系
@@ -671,8 +670,56 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
             }
         }
         return true;
-
     }
+
+    //实现 Trie (前缀树)
+    class TrieNode {
+        boolean isEnd;
+        TrieNode[] next;
+
+        TrieNode() {
+            this.isEnd = false;
+            this.next = new TrieNode[26];
+        }
+    }
+
+    private final TrieNode root = new TrieNode();
+
+    public void insert(String word) {
+        TrieNode node = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if (node.next[ch - 'a'] == null) {
+                node.next[ch - 'a'] = new TrieNode();
+            }
+            node = node.next[ch - 'a'];
+        }
+        node.isEnd = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode node = root;
+        for (char ch : word.toCharArray()) {
+            if (node.next[ch - 'a'] == null) {
+                return false;
+            }
+            node = node.next[ch - 'a'];
+        }
+        return node.isEnd;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode node = root;
+        for (char ch : prefix.toCharArray()) {
+            if (node.next[ch - 'a'] == null) {
+                return false;
+            }
+            node = node.next[ch - 'a'];
+        }
+        return true;
+    }
+
+
 
 
     //hello world
@@ -683,21 +730,21 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         System.out.println((longestConsecutive(new int[]{100, 4, 200, 1, 3, 2})));
     }
 
-    public class ListNode {
-        int val;
-        ListNode next;
+public class ListNode {
+    int val;
+    ListNode next;
 
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
+    ListNode() {
     }
+
+    ListNode(int val) {
+        this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
 
 }
