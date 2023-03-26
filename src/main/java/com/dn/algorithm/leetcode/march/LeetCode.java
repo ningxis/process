@@ -1,5 +1,6 @@
 package com.dn.algorithm.leetcode.march;
 
+import com.dn.algorithm.leetcode.utils.LeetCodeUtils;
 import com.dn.bean.TreeNode;
 
 import java.util.*;
@@ -752,7 +753,7 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
     }
 
     //二叉树的最近公共祖先
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) {
             //只要当前根节点是p和q中的任意一个，就返回（因为不能比这个更深了，再深p和q中的一个就没了）
             return root;
@@ -776,13 +777,30 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return root;
     }
 
+    //除自身以外数组的乘积
+    public static int[] productExceptSelf(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return nums;
+        }
+        int p = 1, q = 1;
+        int[] res = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = p;
+            p *= nums[i];
+        }
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] = q * res[i];
+            q *= nums[i];
+        }
+        return res;
+    }
+
 
     //hello world
     public static void main(String[] args) {
-        System.out.println((longestConsecutive(new int[]{100, 4, 200, 1, 3, 2})));
-        System.out.println((longestConsecutive(new int[]{1, 2, 0, 1})));
-        System.out.println((longestConsecutive(new int[]{0, 3, 7, 2, 5, 8, 4, 6, 0, 1})));
-        System.out.println((longestConsecutive(new int[]{100, 4, 200, 1, 3, 2})));
+        TreeNode treeNode = LeetCodeUtils.processTreeNode(new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4});
+        TreeNode node = lowestCommonAncestor(treeNode, new TreeNode(5), new TreeNode(1));
+        System.out.println(node.val);
     }
 
     public class ListNode {
