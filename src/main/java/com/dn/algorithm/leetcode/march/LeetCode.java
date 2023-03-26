@@ -813,7 +813,8 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return false;
     }
 
-    public static boolean searchMatrix1(int[][] matrix, int target) {
+    public static boolean searchMatrix1(int target) {
+        int[][] matrix = new int[][]{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
         if (matrix.length == 0 || matrix[0].length == 0) {
             return false;
         }
@@ -941,11 +942,58 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return Math.max(dp[len - 1][0], dp[len - 1][2]);
     }
 
+    //347. 前 K 个高频元素
+    public int[] topKFrequent(int[] nums, int k) {
+        List<Integer> list = new ArrayList<>();
+        if(nums == null || nums.length == 0){
+            return list.stream().mapToInt(Integer::valueOf).toArray();
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num:nums){
+            if(map.containsKey(num)){
+                map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, 1);
+            }
+        }
+        List<Integer>[] mapArray = new List[nums.length + 1];
+        // for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+        //     if(mapArray[entry.getValue()] == null){
+        //         mapArray[entry.getValue()] = new ArrayList<>(entry.getKey());//这个是list的初始化容量
+        //     } else {
+        //         mapArray[entry.getValue()].add(entry.getKey());
+        //     }
+        // }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if(mapArray[entry.getValue()] == null){
+                mapArray[entry.getValue()] = new ArrayList<Integer>(){{
+                    add(entry.getKey());//arraylist的初始化方式
+                }};
+            } else {
+                mapArray[entry.getValue()].add(entry.getKey());
+            }
+
+        }
+
+
+
+        for (int i = mapArray.length - 1; i >= 0 && k >= 1; i--) {
+            if(mapArray[i] != null){
+                list.addAll(mapArray[i]);
+                k = k - mapArray[i].size();
+            }
+        }
+        new ArrayList<Integer>(){{
+
+        }};
+        return list.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+
 
         //hello world
     public static void main(String[] args) {
-        int[][] matrix = new int[][]{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
-        System.out.println(searchMatrix1(matrix, 5));
+//        System.out.println(decodeString11("3[a2[c]]"));
     }
 
     public class ListNode {
