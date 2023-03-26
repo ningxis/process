@@ -866,8 +866,26 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return dp[n];
     }
 
+    //287.寻找重复数
+    public int findDuplicate(int[] nums) {
+        int slow = 0;
+        int fast = 0;
+        while(slow != fast){
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+        //快慢指针第一次相遇
+        int pre1 = 0;
+        int pre2 = slow;
+        while(pre1 != pre2){
+            pre1 = nums[pre1];
+            pre2 = nums[pre2];
+        }
+        return nums[pre1];
+    }
 
-    //hello world
+
+        //hello world
     public static void main(String[] args) {
         int[][] matrix = new int[][]{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
         System.out.println(searchMatrix1(matrix, 5));
