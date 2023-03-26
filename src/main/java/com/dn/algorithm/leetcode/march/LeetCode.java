@@ -989,11 +989,41 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return list.stream().mapToInt(Integer::valueOf).toArray();
     }
 
+    //字符串解码
+    public static String decodeString11(String s) {
+        int k = 0;
+        StringBuilder res = new StringBuilder();
+        Stack<Integer> kStack = new Stack<>();
+        Stack<StringBuilder> resStack = new Stack<>();
+        for(char ch : s.toCharArray()){
+            if(ch == '['){
+                //碰到括号，记录K和当前res，归零。
+                kStack.push(k);
+                resStack.push(res);
+                k = 0;
+                res = new StringBuilder();
+            } else if(ch == ']'){
+                int curk = kStack.pop();
+                //出最近的一个左括号入的k,当前res进行计算不入栈
+                StringBuilder temp = new StringBuilder();
+                for(int i = 0; i < curk; i++){
+                    temp.append(res);
+                }
+                res = resStack.pop().append(temp);//与括号外合并
+            } else if(ch >= '0' && ch <= '9'){
+                //如果k是多位数需要x10
+                k = ch - '0' + k * 10;
+            } else {
+                res.append(ch);//如果是字母则缓慢添加
+            }
+        }
+        return new String(res);
+    }
 
 
         //hello world
     public static void main(String[] args) {
-//        System.out.println(decodeString11("3[a2[c]]"));
+        System.out.println(decodeString11("3[a2[c]]"));
     }
 
     public class ListNode {
