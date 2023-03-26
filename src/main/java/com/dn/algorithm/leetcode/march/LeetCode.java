@@ -1,6 +1,5 @@
 package com.dn.algorithm.leetcode.march;
 
-import com.dn.algorithm.leetcode.utils.LeetCodeUtils;
 import com.dn.bean.TreeNode;
 
 import java.util.*;
@@ -795,12 +794,67 @@ public class LeetCode extends LinkedHashMap<Integer, Integer> {
         return res;
     }
 
+    //搜索二维矩阵 II
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+            return false;
+        }
+        int row = 0;
+        int col = matrix[0].length;
+        while(matrix[row][col] != target){
+            if(matrix[row][col] < target){
+                row++;
+            } else if(matrix[row][col] > target){
+                col--;
+            } else{
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean searchMatrix1(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            if(matrix[i][0] > target){
+                break;
+            }
+            if(matrix[i][matrix[0].length - 1] < target){
+                continue;
+            }
+            int result = binarySearch(matrix[i], target);
+            if(result != -1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //二分查找
+    private static int binarySearch(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int mid;
+        while(left <= right){
+            mid = left + (right - left) / 2;
+            if(nums[mid] > target){
+                right = mid - 1;
+            } else if(nums[mid] < target){
+                left = mid + 1;
+            } else {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
 
     //hello world
     public static void main(String[] args) {
-        TreeNode treeNode = LeetCodeUtils.processTreeNode(new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4});
-        TreeNode node = lowestCommonAncestor(treeNode, new TreeNode(5), new TreeNode(1));
-        System.out.println(node.val);
+        int[][] matrix = new int[][]{{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
+        System.out.println(searchMatrix1(matrix, 5));
     }
 
     public class ListNode {
