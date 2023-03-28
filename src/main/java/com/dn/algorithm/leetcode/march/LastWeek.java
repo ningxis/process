@@ -3,6 +3,7 @@ package com.dn.algorithm.leetcode.march;
 import com.dn.bean.TreeNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class LastWeek {
     }
 
     //找到字符串中所有字母异位词
-    public List<Integer> findAnagrams(String s, String p) {
+    public static List<Integer> findAnagrams(String s, String p) {
         /*
         滑窗+词频统计:
         题意等价于:在一个大小固定为p长度的窗口内,将符合条件的窗口起始索引加入结果
@@ -106,13 +107,14 @@ public class LastWeek {
             int j = i + lenP - 1;   // j为新窗口右端索引
             sMap[s.charAt(j) - 'a']++;
             sMap[s.charAt(i - 1) - 'a']--;  // i-1为退出窗口的索引
+            System.out.println(Arrays.toString(sMap));
             if (valid(sMap, pMap)) res.add(i);  // 新窗口子串与p是异位词
         }
         return res;
     }
 
     // 判断当前s子串是否与p是异位词(排除法)
-    private boolean valid(int[] sMap, int[] pMap) {
+    private static boolean valid(int[] sMap, int[] pMap) {
         for (int i = 0; i < 26; i++) {
             if (sMap[i] != pMap[i]) return false;
         }
@@ -120,6 +122,6 @@ public class LastWeek {
     }
 
     public static void main(String[] args) {
-
+        System.out.println(findAnagrams("cbaebabacd", "abc"));
     }
 }
