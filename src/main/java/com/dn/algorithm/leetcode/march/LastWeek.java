@@ -2,7 +2,9 @@ package com.dn.algorithm.leetcode.march;
 
 import com.dn.bean.TreeNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author skyline
@@ -79,6 +81,42 @@ public class LastWeek {
         sum -= root.val;
         // 最终的合法路径数=以root为终点的+终点在root左右子树的 合法路径数 之和
         return cur + l + r;
+    }
+
+    //找到字符串中所有字母异位词
+    public List<Integer> findAnagrams(String s, String p) {
+        /*
+        滑窗+词频统计:
+        题意等价于:在一个大小固定为p长度的窗口内,将符合条件的窗口起始索引加入结果
+        如何判定是否符合要求?可以通过数组进行词频统计,判断s子串与p是否出现的字母与数量完全一致
+         */
+        List<Integer> res = new ArrayList<>();
+        int[] sMap = new int[26]; // 记录s窗口子串的词频
+        int[] pMap = new int[26]; // p的字母出现的词频
+        int lenP = p.length(), lenS = s.length();
+        if (lenP > lenS) return res;    // 子串p比主串s还大,直接返回res
+        // 首个窗口
+        for (int i = 0; i < lenP; i++) {
+            sMap[s.charAt(i) - 'a']++;
+            pMap[p.charAt(i) - 'a']++;
+        }
+        if (valid(sMap, pMap)) res.add(0);
+        // i为新窗口左端的索引
+        for (int i = 1; i + lenP - 1 < lenS; i++) {
+            int j = i + lenP - 1;   // j为新窗口右端索引
+            sMap[s.charAt(j) - 'a']++;
+            sMap[s.charAt(i - 1) - 'a']--;  // i-1为退出窗口的索引
+            if (valid(sMap, pMap)) res.add(i);  // 新窗口子串与p是异位词
+        }
+        return res;
+    }
+
+    // 判断当前s子串是否与p是异位词(排除法)
+    private boolean valid(int[] sMap, int[] pMap) {
+        for (int i = 0; i < 26; i++) {
+            if (sMap[i] != pMap[i]) return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
