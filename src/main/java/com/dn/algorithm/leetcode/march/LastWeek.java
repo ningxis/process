@@ -153,7 +153,26 @@ public class LastWeek {
         return dp[pos];
     }
 
+    //盛最多水的容器
+    public static int maxArea(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int max = 0;
+        while(left <= right){
+            int area;
+            if(height[left] <= height[right]){
+                area = height[left] * (right - left);
+                left++;
+            } else {
+                area = height[right] * (right - left);
+                right--;
+            }
+            max = Math.max(area, max);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
-        System.out.println(findAnagrams("cbaebabacd", "abc"));
+        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
     }
 }
