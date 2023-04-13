@@ -240,6 +240,26 @@ public class LeetCode {
         }
         return nums;
     }
+
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode node = new ListNode(-1, head);
+        ListNode cur = node;
+        ListNode pre = node;
+        while(cur != null){
+            if(head.val != val){
+                cur.next = head;
+                head = head.next;
+                cur = cur.next;
+                pre = head;
+            } else {
+                pre.next = head.next;
+                head = head.next;
+                cur = head;
+            }
+        }
+        return node.next;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{2,3,1,2,4,3};
         System.out.println(generateMatrix(4));
