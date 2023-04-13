@@ -77,4 +77,46 @@ public class LeetCode {
         cur.next = prev;
         return reverse(cur, node);
     }
+
+    //二分查找 左闭右闭
+    private int search(int[] nums, int target){
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] > target){
+                right = mid - 1;
+            } else if(nums[mid] == target){
+                return mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+    /*左闭右开区间查找
+        while(left < right)，这里使用 < ,因为left == right在区间[left, right)是没有意义的
+        if (nums[middle] > target) right 更新为 middle，因为当前nums[middle]不等于target，去左区间继续寻找，而寻找区间是左闭右开区间，所以right更新为middle，即：下一个查询区间不会去比较nums[middle]
+    */
+    private int search2(int[] nums, int target){
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int left = 0;
+        int right = nums.length;
+        while(left < right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] > target){
+                right = mid;
+            } else if(nums[mid] == target){
+                return mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
 }
