@@ -119,4 +119,38 @@ public class LeetCode {
         }
         return -1;
     }
+
+    //移除元素
+    public int removeElement(int[] nums, int val) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex < nums.length; fastIndex++) {
+            if(val != nums[fastIndex]){
+                slowIndex++;
+                nums[slowIndex] = nums[fastIndex];
+            }
+        }
+        return slowIndex;
+    }
+    //双循环移除元素
+    public int removeElement2(int[] nums, int val) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int number = nums.length;
+        for (int i = 0; i < number; i++) {
+            if(nums[i] == val){
+                //所有元素左移,number数组容量也减小
+                for (int j = i + 1; j < number; j++) {
+                    nums[j - 1] = nums[j];
+                }
+                number--;//此处的number值减小之后，相当于循环少处理了
+                i--;//左移之后i要重新处理
+            }
+        }
+        return number;
+    }
+
 }
