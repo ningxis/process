@@ -1,5 +1,7 @@
 package com.dn.algorithm.leetcode.april;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -430,4 +432,94 @@ public class LeetCode {
         pre.next.next.prev = pre;
         pre.next = pre.next.next;
     }
+
+    //两两交换链表中的节点
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // ListNode dummy = new ListNode(0, head);
+        // ListNode cur = dummy;
+        // ListNode first,second,temp;
+        // while(cur.next != null && cur.next.next != null){
+        //     temp = cur.next.next.next;
+        //     first = cur.next;
+        //     second = cur.next.next;
+        //     cur.next = second;
+        //     second.next = first;
+        //     first.next = temp;
+        //     cur = first;
+        // }
+        // return dummy.next;
+        ListNode next = head.next;
+        ListNode newNode = swapPairs(next.next);
+        next.next = head;
+        head.next = newNode;
+        return next;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return head;
+        }
+        int depth = getDepth(head);
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        for (int i = 0; i < depth - n; i++) {
+            head = head.next;
+        }
+        head.next = head.next.next;
+        return dummy;
+    }
+
+    private int getDepth(ListNode head) {
+        int depth = 0;
+        while (head != null) {
+            head = head.next;
+            depth++;
+        }
+        return depth;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && slow != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                ListNode fast1 = head;
+                ListNode slow1 = slow;
+                while(fast1 != slow1){
+                    fast1 = fast1.next;
+                    slow1 = slow1.next;
+                }
+                return fast1;
+            }
+        }
+        return null;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) + 1);
+            } else {
+                map.put(c, 1);
+            }
+        }
+        for (char c : t.toCharArray()) {
+            if(!map.containsKey(c)){
+                return false;
+            }
+            if(map.get(c) == 1){
+                map.remove(c);
+            } else {
+                map.put(c, map.get(c) - 1);
+            }
+        }
+        return map.isEmpty();
+    }
+
 }
