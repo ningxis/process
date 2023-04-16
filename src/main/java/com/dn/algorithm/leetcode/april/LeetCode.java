@@ -260,11 +260,6 @@ public class LeetCode {
         return node.next;
     }
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{2, 3, 1, 2, 4, 3};
-        System.out.println(generateMatrix(4));
-    }
-
     /**
      * Your MyLinkedList object will be instantiated and called as such:
      * MyLinkedList obj = new MyLinkedList();
@@ -485,10 +480,10 @@ public class LeetCode {
         while (fast.next != null && slow != null) {
             fast = fast.next.next;
             slow = slow.next;
-            if(fast == slow){
+            if (fast == slow) {
                 ListNode fast1 = head;
                 ListNode slow1 = slow;
-                while(fast1 != slow1){
+                while (fast1 != slow1) {
                     fast1 = fast1.next;
                     slow1 = slow1.next;
                 }
@@ -501,17 +496,17 @@ public class LeetCode {
     public boolean isAnagram(String s, String t) {
         Map<Character, Integer> map = new HashMap<>();
         for (char c : s.toCharArray()) {
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 map.put(c, map.get(c) + 1);
             } else {
                 map.put(c, 1);
             }
         }
         for (char c : t.toCharArray()) {
-            if(!map.containsKey(c)){
+            if (!map.containsKey(c)) {
                 return false;
             }
-            if(map.get(c) == 1){
+            if (map.get(c) == 1) {
                 map.remove(c);
             } else {
                 map.put(c, map.get(c) - 1);
@@ -521,7 +516,7 @@ public class LeetCode {
     }
 
     public int[] intersection(int[] nums1, int[] nums2) {
-        if(nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0){
+        if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) {
             return new int[0];
         }
         Set<Integer> set = new HashSet<>();
@@ -530,7 +525,7 @@ public class LeetCode {
             set.add(i);
         }
         for (int i : nums2) {
-            if(!set.contains(i)){
+            if (!set.contains(i)) {
                 res.add(i);
             }
         }
@@ -543,4 +538,35 @@ public class LeetCode {
         return nums;
     }
 
+    public static boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+        System.out.println("---------入参：-----" + n);
+        while (n != 0) {
+            int sum = 0;
+            while (n != 0) {
+                int temp2 = n % 10;
+                sum += temp2 * temp2;
+                n /= 10;
+            }
+            if (sum == 1) {
+                return true;
+            }
+            n = sum;
+            System.out.println("出参：" + sum);
+            if (!set.add(n)) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{2, 3, 1, 2, 4, 3};
+//        System.out.println(isHappy(19));
+//        System.out.println(isHappy(1));
+        for (int i = 0; i < 10; i++) {
+            System.out.println(isHappy(i));
+        }
+//        System.out.println(isHappy(5));
+    }
 }
