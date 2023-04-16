@@ -777,6 +777,7 @@ public class LeetCode {
         return res;
     }
 
+    //四数之和
     public static List<List<Integer>> fourSum(int[] nums, int target) {
 //        List<List<Integer>> res = new ArrayList<>();
 //        if (nums.length < 4) {
@@ -849,11 +850,24 @@ public class LeetCode {
         return res;
     }
 
+    //反转字符串
+    public void reverseString(char[] s) {
+        int start = 0;
+        int end = s.length - 1;
+        while (start < end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{-2, -1, -1, 1, 1, 2, 2};
+        int[] nums1 = new int[]{0,0,0,1000000000,1000000000,1000000000,1000000000};
         int[] nums2 = new int[]{1, 0, -1, 0, -2, 2};
-        System.out.println(fourSum(nums1, 0));
+        System.out.println(fourSum(nums1, 1000000000));
         System.out.println(fourSum(nums2, 0));
     }
 }
