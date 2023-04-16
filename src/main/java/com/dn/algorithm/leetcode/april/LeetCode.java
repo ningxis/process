@@ -656,7 +656,7 @@ public class LeetCode {
         for (int i = 0; i < nums.length; i++) {
             int first = nums[i];
             //初始值大于0，就不用考虑后面的情况
-            if(first > 0){
+            if (first > 0) {
                 break;
             }
             //过滤相同元素
@@ -668,10 +668,10 @@ public class LeetCode {
             for (int j = i + 1; j < nums.length; j++) {
                 int third = nums[j];
                 int second = -(first + third);
-                if (set.contains(second)){
+                if (set.contains(second)) {
                     res.add(Arrays.asList(first, second, third));
                     //过滤相同元素
-                    while (j < nums.length - 1 && nums[j + 1] == nums[j]){
+                    while (j < nums.length - 1 && nums[j + 1] == nums[j]) {
                         j++;
                     }
                 }
@@ -682,9 +682,178 @@ public class LeetCode {
         return res;
     }
 
+    //双指针解三数之和
+    public static List<List<Integer>> threeSumByDoublePoint(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length < 3) {
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int first = nums[i];
+            if (first > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1;
+            int right = nums.length - 1;
+//            while (left < right) {
+//                int sum = nums[i] + nums[left] + nums[right];
+//                if (sum > 0) {
+//                    right--;
+//                    while (right > i && nums[right + 1] == nums[right]) {
+//                        right--;
+//                    }
+//                } else if (sum < 0) {
+//                    left++;
+//                    while (left < nums.length - 2 && nums[left] == nums[left - 1]) {
+//                        left++;
+//                    }
+//                } else {
+//                    res.add(Arrays.asList(first, nums[left], nums[right]));
+//                    left++;
+//                    right--;
+//                    while (right < i && nums[right + 1] == nums[right]) {
+//                        right--;
+//                    }
+//                    while (left < nums.length - 1 && nums[left] == nums[left - 1]) {
+//                        left++;
+//                    }
+//                }
+//            }
+            //________________________________________________________________________________________________________
+            //_________________________________________________________________
+//            while (left < right) {
+//                int sum = nums[i] + nums[left] + nums[right];
+//                if (sum > 0) {
+//                    while (left < right && nums[right] == nums[--right]) ;
+//                    // right--;
+//                    // while (right > i && nums[right + 1] == nums[right]) {
+//                    //     right--;
+//                    // }
+//                } else if (sum < 0) {
+//                    while (left < right && nums[left] == nums[++left]) ;
+//                    // left++;
+//                    // while (left < nums.length - 2 && nums[left] == nums[left - 1]) {
+//                    //     left++;
+//                    // }
+//                } else {
+//                    res.add(Arrays.asList(first, nums[left], nums[right]));
+//                    // while (right < right && nums[right + 1] == nums[right]) {
+//                    //     right--;
+//                    // }
+//                    // while (left < right && nums[left] == nums[left - 1]) {
+//                    //     left++;
+//                    // }
+//                    while (left < right && nums[left] == nums[++left]) ;
+//                    while (left < right && nums[right] == nums[--right]) ;
+//                }
+//            }
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    res.add(Arrays.asList(first, nums[left], nums[right]));
+//                    left++;
+//                    right--;
+
+//                while (left < right && right < nums.length - 1 && nums[right + 1] == nums[right]) {
+//                    right--;
+//                }
+//                while (left < right && nums[left] == nums[left - 1]) {
+//                    left++;
+//                }
+                    //这里会自动执行一次left++，right--，然后结果再进行判断，相当于合并了上述操作
+                    while (left < right && nums[left] == nums[++left]) ;
+                    while (left < right && nums[right] == nums[--right]) ;
+                }
+                if (sum > 0) right--;
+                if (sum < 0) left++;
+
+
+            }
+        }
+        return res;
+    }
+
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+//        List<List<Integer>> res = new ArrayList<>();
+//        if (nums.length < 4) {
+//            return res;
+//        }
+//        Arrays.sort(nums);
+//        for (int k = 0; k < nums.length - 3; k++) {
+//            if (k > 0 && nums[k] == nums[k - 1]) {
+//                continue;
+//            }
+//            for (int i = k + 1; i < nums.length - 2; i++) {
+//                int first = nums[i];
+//                if (i > k + 1 && nums[i] == nums[i - 1]) {
+//                    continue;
+//                }
+//                int left = i + 1;
+//                int right = nums.length - 1;
+//                while (left < right) {
+//                    int sum = nums[i] + nums[left] + nums[right] + nums[k];
+//                    if (sum == target) {
+//                        res.add(Arrays.asList(nums[k], first, nums[left], nums[right]));
+//                        while (left < right && nums[left] == nums[++left]) ;
+//                        while (left < right && nums[right] == nums[--right]) ;
+//                    }
+//                    if (sum > target) right--;
+//                    if (sum < target) left++;
+//                }
+//            }
+//        }
+//        return res;
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length < 4) {
+            return res;
+        }
+        Arrays.sort(nums);
+        int len = nums.length;
+        for (int k = 0; k < len - 3; k++) {
+            //获取当前最小值，如果最小值比目标值大，说明后面越来越大的值根本没戏,直接跳出循环
+            if (nums[k] + nums[k + 1] + nums[k + 2] +nums[k + 3] > target) {
+                break;
+            }
+
+            //获取当前最大值，如果最大值比目标值小，说明后面越来越小的值根本没戏
+            if (nums[k] + nums[len - 1] + nums[len - 2] +nums[len - 3] < target) {
+                continue;
+            }
+            if (k > 0 && nums[k] == nums[k - 1]) {
+                continue;
+            }
+            for (int i = k + 1; i < len - 2; i++) {
+                int first = nums[i];
+                if (i > k + 1 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                int left = i + 1;
+                int right = len - 1;
+                while (left < right) {
+                    //相加会溢出 转为long
+                    long sum = (long) nums[i] + nums[left] + nums[right] + nums[k];
+                    if (sum == target) {
+                        res.add(Arrays.asList(nums[k], first, nums[left], nums[right]));
+                        while (left < right && nums[left] == nums[++left]) ;
+                        while (left < right && nums[right] == nums[--right]) ;
+                    }
+                    if (sum > target) right--;
+                    if (sum < target) left++;
+                }
+            }
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
-        int[] nums = new int[]{-1,0,1,2,-1,-4};
-        System.out.println(threeSum(nums));
+        int[] nums1 = new int[]{-2, -1, -1, 1, 1, 2, 2};
+        int[] nums2 = new int[]{1, 0, -1, 0, -2, 2};
+        System.out.println(fourSum(nums1, 0));
+        System.out.println(fourSum(nums2, 0));
     }
 }
