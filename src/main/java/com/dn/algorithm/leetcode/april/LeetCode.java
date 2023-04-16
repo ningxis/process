@@ -1,8 +1,6 @@
 package com.dn.algorithm.leetcode.april;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author dingning
@@ -520,6 +518,29 @@ public class LeetCode {
             }
         }
         return map.isEmpty();
+    }
+
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0){
+            return new int[0];
+        }
+        Set<Integer> set = new HashSet<>();
+        Set<Integer> res = new HashSet<>();
+        for (int i : nums1) {
+            set.add(i);
+        }
+        for (int i : nums2) {
+            if(!set.contains(i)){
+                res.add(i);
+            }
+        }
+        int[] nums = new int[res.size()];
+        int index = 0;
+        for (Integer integer : res) {
+            nums[index] = integer;
+            index++;
+        }
+        return nums;
     }
 
 }
