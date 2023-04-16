@@ -451,6 +451,7 @@ public class LeetCode {
         return next;
     }
 
+    //删除链表的倒数第N个节点
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null) {
             return head;
@@ -474,6 +475,7 @@ public class LeetCode {
         return depth;
     }
 
+    //环形链表2
     public ListNode detectCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
@@ -493,6 +495,7 @@ public class LeetCode {
         return null;
     }
 
+    //有效的字母异位词
     public boolean isAnagram(String s, String t) {
         Map<Character, Integer> map = new HashMap<>();
         for (char c : s.toCharArray()) {
@@ -515,6 +518,7 @@ public class LeetCode {
         return map.isEmpty();
     }
 
+    //两个数组的交集
     public int[] intersection(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) {
             return new int[0];
@@ -538,6 +542,7 @@ public class LeetCode {
         return nums;
     }
 
+    //快乐数
     public static boolean isHappy(int n) {
         Set<Integer> set = new HashSet<>();
         System.out.println("---------入参：-----" + n);
@@ -560,6 +565,7 @@ public class LeetCode {
         return false;
     }
 
+    //四数之和2
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
         //超出时间限制
 //        int sum = 0;
@@ -583,7 +589,7 @@ public class LeetCode {
         for (int i : nums1) {
             for (int i1 : nums2) {
                 int sum = i + i1;
-                if(map.containsKey(sum)){
+                if (map.containsKey(sum)) {
                     map.put(sum, (map.get(sum)) + 1);
                 } else {
                     map.put(sum, 1);
@@ -594,12 +600,50 @@ public class LeetCode {
         for (int i : nums3) {
             for (int i1 : nums4) {
                 int sum = i + i1;
-                if(map.containsKey(-sum)){
+                if (map.containsKey(-sum)) {
                     res++;
                 }
             }
         }
         return res;
+    }
+
+    //赎金信
+    public boolean canConstruct(String ransomNote, String magazine) {
+//        if (magazine == null || magazine.length() == 0) {
+//            return false;
+//        }
+//        Map<Character, Integer> map = new HashMap<>();
+//        for (Character c : magazine.toCharArray()) {
+//            if (map.containsKey(c)) {
+//                map.put(c, map.get(c) + 1);
+//            } else {
+//                map.put(c, 1);
+//            }
+//        }
+//        for (Character c : ransomNote.toCharArray()) {
+//            if(map.containsKey(c)){
+//                if(map.get(c) > 1){
+//                    map.put(c, map.get(c) - 1);
+//                } else {
+//                    map.remove(c);
+//                }
+//            } else {
+//                return false;
+//            }
+//        }
+//        return true;
+        int[] record = new int[26];
+        for (char c : magazine.toCharArray()) {
+            record[c - 'a'] += 1;
+        }
+        for (char c : ransomNote.toCharArray()) {
+            record[c - 'a'] -= 1;
+            if(record[c - 'a'] < 0){
+                return false;
+            }
+        }
+        return true;
     }
 
 
