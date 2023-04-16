@@ -863,11 +863,49 @@ public class LeetCode {
         }
     }
 
+    //反转字符串2
+    public static String reverseStr(String s, int k) {
+        //每四个字符反转一遍，理解错了题意
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+        int count = len / 4;
+        int start = 0;
+        int index = 0;
+        while (index <= count) {
+            if (len < 4 || index == count) {
+                if (count == index) {
+                    start = count * 4;
+                }
+                if (len % 4 == 3) {
+                    swap(chars, start, start + 2);
+                } else if (len % 4 == 2) {
+                    swap(chars, start, start + 1);
+                }
+            } else {
+                start = index * 4;
+                swap(chars, start, start + 3);
+                swap(chars, start + 1, start + 2);
+            }
+            index++;
+        }
+        return new String(chars);
+    }
+
+    private static void swap(char[] chars, int start, int end){
+        char temp = chars[start];
+        chars[start] = chars[end];
+        chars[end] = temp;
+    }
+
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{0,0,0,1000000000,1000000000,1000000000,1000000000};
+        int[] nums1 = new int[]{0, 0, 0, 1000000000, 1000000000, 1000000000, 1000000000};
         int[] nums2 = new int[]{1, 0, -1, 0, -2, 2};
         System.out.println(fourSum(nums1, 1000000000));
         System.out.println(fourSum(nums2, 0));
+        System.out.println(reverseStr("isnicehahahhsdferrqewrqe", 4));
     }
 }
