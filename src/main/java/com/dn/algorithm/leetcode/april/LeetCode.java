@@ -560,6 +560,49 @@ public class LeetCode {
         return false;
     }
 
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        //超出时间限制
+//        int sum = 0;
+//        int count = 0;
+//        for (int i : nums1) {
+//            for (int i1 : nums2) {
+//                    for (int i2 : nums3) {
+//                        for (int i3 : nums4) {
+//                            sum += i + i1 + i2 + i3;
+//                            System.out.println(sum);
+//                            if(sum == 0){
+//                                count++;
+//                            }
+//                        }
+//                    }
+//            }
+//        }
+//        return count;
+        int res = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            for (int i1 : nums2) {
+                int sum = i + i1;
+                if(map.containsKey(sum)){
+                    map.put(sum, (map.get(sum)) + 1);
+                } else {
+                    map.put(sum, 1);
+                }
+            }
+        }
+
+        for (int i : nums3) {
+            for (int i1 : nums4) {
+                int sum = i + i1;
+                if(map.containsKey(-sum)){
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
         int[] nums = new int[]{2, 3, 1, 2, 4, 3};
 //        System.out.println(isHappy(19));
