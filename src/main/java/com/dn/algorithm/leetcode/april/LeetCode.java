@@ -639,21 +639,52 @@ public class LeetCode {
         }
         for (char c : ransomNote.toCharArray()) {
             record[c - 'a'] -= 1;
-            if(record[c - 'a'] < 0){
+            if (record[c - 'a'] < 0) {
                 return false;
             }
         }
         return true;
     }
 
+    //三数之和
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            int first = nums[i];
+            //初始值大于0，就不用考虑后面的情况
+            if(first > 0){
+                break;
+            }
+            //过滤相同元素
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            //注意set的位置，存放后续已经遍历过的元素
+            Set<Integer> set = new HashSet<>();
+            for (int j = i + 1; j < nums.length; j++) {
+                int third = nums[j];
+                int second = -(first + third);
+                if (set.contains(second)){
+                    res.add(Arrays.asList(first, second, third));
+                    //过滤相同元素
+                    while (j < nums.length - 1 && nums[j + 1] == nums[j]){
+                        j++;
+                    }
+                }
+                //遍历过的元素全部存下来
+                set.add(third);
+            }
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
-        int[] nums = new int[]{2, 3, 1, 2, 4, 3};
-//        System.out.println(isHappy(19));
-//        System.out.println(isHappy(1));
-        for (int i = 0; i < 10; i++) {
-            System.out.println(isHappy(i));
-        }
-//        System.out.println(isHappy(5));
+        int[] nums = new int[]{-1,0,1,2,-1,-4};
+        System.out.println(threeSum(nums));
     }
 }
