@@ -940,7 +940,19 @@ public class LeetCode {
         return builder.deleteCharAt(builder.length() - 1).toString();
     }
 
+    //左旋转字符串
+    public String reverseLeftWords(String s, int n) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++){
+            int left = 0;
+            int right = chars.length - n;
 
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         System.out.println(reverseWords("  hello world  "));
