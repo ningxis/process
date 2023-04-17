@@ -866,35 +866,47 @@ public class LeetCode {
     //反转字符串2
     public static String reverseStr(String s, int k) {
         //每四个字符反转一遍，理解错了题意
-        if (s == null || s.length() == 0) {
-            return s;
-        }
+//        if (s == null || s.length() == 0) {
+//            return s;
+//        }
+//        char[] chars = s.toCharArray();
+//        int len = chars.length;
+//        int count = len / 4;
+//        int start = 0;
+//        int index = 0;
+//        while (index <= count) {
+//            if (len < 4 || index == count) {
+//                if (count == index) {
+//                    start = count * 4;
+//                }
+//                if (len % 4 == 3) {
+//                    swap(chars, start, start + 2);
+//                } else if (len % 4 == 2) {
+//                    swap(chars, start, start + 1);
+//                }
+//            } else {
+//                start = index * 4;
+//                swap(chars, start, start + 3);
+//                swap(chars, start + 1, start + 2);
+//            }
+//            index++;
+//        }
+//        return new String(chars);
         char[] chars = s.toCharArray();
         int len = chars.length;
-        int count = len / 4;
-        int start = 0;
-        int index = 0;
-        while (index <= count) {
-            if (len < 4 || index == count) {
-                if (count == index) {
-                    start = count * 4;
-                }
-                if (len % 4 == 3) {
-                    swap(chars, start, start + 2);
-                } else if (len % 4 == 2) {
-                    swap(chars, start, start + 1);
-                }
-            } else {
-                start = index * 4;
-                swap(chars, start, start + 3);
-                swap(chars, start + 1, start + 2);
+        for (int i = 0; i < len - 1; i += 2 * k) {
+            int start = i;
+            int end = Math.min(len - 1, start + k - 1);
+            while (start < end){
+                swap(chars, start, end);
+                start++;
+                end--;
             }
-            index++;
         }
         return new String(chars);
     }
 
-    private static void swap(char[] chars, int start, int end){
+    private static void swap(char[] chars, int start, int end) {
         char temp = chars[start];
         chars[start] = chars[end];
         chars[end] = temp;
