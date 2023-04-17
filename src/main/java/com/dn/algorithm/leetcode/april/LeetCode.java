@@ -912,12 +912,39 @@ public class LeetCode {
         chars[end] = temp;
     }
 
+    //替换空格
+    public String replaceSpace(String s) {
+        StringBuilder builder = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (c == ' '){
+                builder.append("%20");
+            } else {
+                builder.append(c);
+            }
+        }
+        return builder.toString();
+    }
+
+    // 反转字符串中的单词
+    public static String reverseWords(String s) {
+        String[] chars = s.split(" ");
+        int end = chars.length - 1;
+        StringBuilder builder = new StringBuilder();
+        while (end >= 0) {
+            if (!Objects.equals(chars[end], "")) {
+                builder.append(chars[end]);
+                builder.append(" ");
+            }
+            end--;
+        }
+        return builder.deleteCharAt(builder.length() - 1).toString();
+    }
+
+
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{0, 0, 0, 1000000000, 1000000000, 1000000000, 1000000000};
-        int[] nums2 = new int[]{1, 0, -1, 0, -2, 2};
-        System.out.println(fourSum(nums1, 1000000000));
-        System.out.println(fourSum(nums2, 0));
-        System.out.println(reverseStr("isnicehahahhsdferrqewrqe", 4));
+        System.out.println(reverseWords("  hello world  "));
+        String str = "fifdhasiufhui31";
+
     }
 }
