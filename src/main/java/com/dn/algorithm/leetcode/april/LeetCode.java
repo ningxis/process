@@ -955,12 +955,18 @@ public class LeetCode {
         }
         char[] chars = haystack.toCharArray();
         int index = 0;
+        int len = needle.length();
         for (int i = 0; i < chars.length; i++){
-            while (i + index < haystack.length() && chars[i + index] == needle.charAt(index)) {
+            //直接比对每一个字符
+            while (i + index < haystack.length() && chars[i + index] == needle.charAt(index) && chars[i + needle.length() - 1] == needle.charAt(needle.length() - 1)) {
                 if (index == needle.length() - 1){
                     return i;
                 }
                 index++;
+            }
+            //比对字符串 高效
+            if (i <= haystack.length() - len && chars[i] == needle.charAt(index) && chars[i + needle.length() - 1] == needle.charAt(needle.length() - 1) ) {
+                if (haystack.substring(i, i + len).equals(needle))  return i;
             }
             index = 0;
         }
@@ -969,6 +975,7 @@ public class LeetCode {
 
     public static void main(String[] args) {
         System.out.println(strStr("mississippi", "issi"));
+        System.out.println(strStr("a", "a"));
         System.out.println(strStr("mississippi", "issip"));
         System.out.println(strStr("sadbutsad", "sad"));
         System.out.println(strStr("leetcode", "leeto"));
