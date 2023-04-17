@@ -941,22 +941,36 @@ public class LeetCode {
     }
 
     //左旋转字符串
-    public String reverseLeftWords(String s, int n) {
+    public static String reverseLeftWords(String s, int n) {
         if (s == null || s.length() == 0) {
             return s;
         }
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length; i++){
-            int left = 0;
-            int right = chars.length - n;
+        return s.substring(n) + s.substring(0, n);
+    }
 
+    //找出字符串中第一个匹配项的下标
+    public static int strStr(String haystack, String needle) {
+        if (haystack == null || haystack.length() == 0){
+            return -1;
         }
-        return null;
+        char[] chars = haystack.toCharArray();
+        int index = 0;
+        for (int i = 0; i < chars.length; i++){
+            while (i + index < haystack.length() && chars[i + index] == needle.charAt(index)) {
+                if (index == needle.length() - 1){
+                    return i;
+                }
+                index++;
+            }
+            index = 0;
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
-        System.out.println(reverseWords("  hello world  "));
-        String str = "fifdhasiufhui31";
-
+        System.out.println(strStr("mississippi", "issi"));
+        System.out.println(strStr("mississippi", "issip"));
+        System.out.println(strStr("sadbutsad", "sad"));
+        System.out.println(strStr("leetcode", "leeto"));
     }
 }
