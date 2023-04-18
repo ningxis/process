@@ -974,17 +974,14 @@ public class LeetCode {
     }
 
     //重复的子字符串
-    public boolean repeatedSubstringPattern(String s) {
+    public static boolean repeatedSubstringPattern(String s) {
         String str = s + s;
         //字符串 S 包含一个重复的子字符串，那么这意味着您可以多次 “移位和换行”`您的字符串，并使其与原始字符串匹配
+        //判断 str 中去除首尾元素之后，是否包含自身元素
         return str.substring(1, str.length() - 1).contains(s);
     }
 
     public static void main(String[] args) {
-        System.out.println(strStr("mississippi", "issi"));
-        System.out.println(strStr("a", "a"));
-        System.out.println(strStr("mississippi", "issip"));
-        System.out.println(strStr("sadbutsad", "sad"));
-        System.out.println(strStr("leetcode", "leeto"));
+        System.out.println(repeatedSubstringPattern("abcabcabcabc"));
     }
 }
