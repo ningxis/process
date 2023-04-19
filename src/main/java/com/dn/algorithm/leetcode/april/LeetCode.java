@@ -1020,7 +1020,7 @@ public class LeetCode {
         }
         int max = 0;
         Map<Character, Integer> map = new HashMap<>();
-        for (int start = 0, end = 0; end < s.length() - 1; end++){
+        for (int start = 0, end = 0; end < s.length() - 1; end++) {
             char c = s.charAt(end);
             if (map.containsKey(c)) {
                 start = Math.max(start, map.get(c) + 1);
@@ -1031,7 +1031,30 @@ public class LeetCode {
         return max;
     }
 
+    //回文数
+    public static boolean isPalindrome(int x) {
+        if (x < 0 || (x != 0 && x % 10 == 0)) {
+            return false;
+        }
+        int div = 1;
+        while (x / 10 >= div) {
+            div *= 10;
+        }
+        while (x > 0) {
+            int left = x / div;
+            int right = x % 10;
+            if (left != right) {
+                return false;
+            }
+            x = (x % div) / 10;
+            div /= 100;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        System.out.println(repeatedSubstringPattern("abcabcabcabc"));
+        System.out.println(isPalindrome(1221));
+        System.out.println(isPalindrome(122121221));
+        System.out.println(isPalindrome(191));
     }
 }
