@@ -1052,6 +1052,7 @@ public class LeetCode {
         return true;
     }
 
+    //电话号码的字母组合
     public static List<String> letterCombinations(String digits) {
         Map<Character, String> phoneMap = new HashMap<>();
         phoneMap.put('2', "abc");
@@ -1075,11 +1076,43 @@ public class LeetCode {
         }
         Character c = digits.charAt(index);
         String letters = phoneMap.get(c);
+        //这里要循环去找字符
         for (int i = 0; i < letters.length(); i++) {
             builder.append(letters.charAt(i));
-            backTrack(digits, list, index + 1, builder, phoneMap);
+            backTrack(digits, list, index + 1, builder, phoneMap);// index是值传递，不能index++
             builder.deleteCharAt(index);
         }
+    }
+
+    //四数之和
+    public List<List<Integer>> fourSum2(int[] nums, int target) {
+        return null;
+    }
+
+
+    //最长公共前缀
+    public static String longestCommonPrefix(String[] strs) {
+         if (strs == null || strs.length < 1) {
+             return "";
+         }
+         String first = strs[0];
+         for (int i = 0; i <= first.length(); i++) {
+             String prefix = first.substring(0, i);
+             for (String str : strs) {
+                 if (!str.startsWith(prefix)) {
+                     return prefix.substring(0, prefix.length() - 1);
+                 }
+             }
+         }
+         return first;
+//        String s = strings[0];
+//        for (String string : strings) {
+//            while(!string.startsWith(s)){
+//                if(s.length()==0)return "";
+//                s = s.substring(0,s.length()-1);
+//            }
+//        }
+//        return s;
     }
 
 
@@ -1090,5 +1123,11 @@ public class LeetCode {
         System.out.println(letterCombinations("23426796"));
         System.out.println(letterCombinations("234"));
         System.out.println(letterCombinations("432"));
+        String str = "3241324324434132432";
+        str.substring(0, str.length());
+        System.out.println(str);
+        String[] strings = new String[]{"flower","flower","flower","flower"};
+        System.out.println(longestCommonPrefix(strings));
+        System.out.println(longestCommonPrefix(new String[]{"a"}));
     }
 }
