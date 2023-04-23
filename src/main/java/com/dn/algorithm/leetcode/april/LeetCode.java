@@ -1013,7 +1013,43 @@ public class LeetCode {
         return dummy.next;
     }
 
+    public static List<String> letterCombinations(String digits) {
+        Map<Character, String> phoneMap = new HashMap<>();
+        phoneMap.put('2', "abc");
+        phoneMap.put('3', "def");
+        phoneMap.put('4', "ghi");
+        phoneMap.put('5', "jkl");
+        phoneMap.put('6', "mno");
+        phoneMap.put('7', "pqrs");
+        phoneMap.put('8', "tuv");
+        phoneMap.put('9', "wxyz");
+        StringBuilder builder = new StringBuilder();
+        List<String> list = new ArrayList<>();
+        backTrack(digits, list, 0, builder, phoneMap);
+        return list;
+    }
+
+    private static void backTrack(String digits, List<String> list, int index, StringBuilder builder, Map<Character, String> phoneMap){
+        if (index >= digits.length()) {
+            list.add(new String(builder));
+            return;
+        }
+        Character c = digits.charAt(index);
+        String letters = phoneMap.get(c);
+        for (int i = 0; i < letters.length(); i++) {
+            builder.append(letters.charAt(i));
+            backTrack(digits, list, index + 1, builder, phoneMap);
+            builder.deleteCharAt(index);
+        }
+    }
+
+
+
+
     public static void main(String[] args) {
-        System.out.println(repeatedSubstringPattern("abcabcabcabc"));
+        System.out.println(letterCombinations("23"));
+        System.out.println(letterCombinations("23426796"));
+        System.out.println(letterCombinations("234"));
+        System.out.println(letterCombinations("432"));
     }
 }
