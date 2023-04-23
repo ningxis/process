@@ -10,6 +10,23 @@ import java.util.*;
  */
 public class Hot100 {
 
+    public static class ListNode {
+        public int val;
+        public ListNode next;
+
+        public ListNode() {
+        }
+
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
     //三数之和
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -59,9 +76,36 @@ public class Hot100 {
         return res;
     }
 
+
+    //删除链表的倒数第 N 个结点
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return head;
+        }
+        int depth = depth(head);
+        if (depth == 1 && n > 0) {
+            return new ListNode();
+        }
+        ListNode dummy = new ListNode(-1, head);
+        ListNode cur = dummy;
+        for (int i = 0; i < depth - n; i++) {
+            cur = cur.next;
+        }
+        cur.next = cur.next.next;
+        return dummy.next;
+    }
+
+    private static int depth(ListNode node) {
+        int depth = 0;
+        while (node != null) {
+            depth++;
+            node = node.next;
+        }
+        return depth;
+    }
+
     public static void main(String[] args) {
-        System.out.println(threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
-        System.out.println(threeSum(new int[]{-1, -1, -1, 2}));
+        System.out.println(removeNthFromEnd(new ListNode(1), 1).val);
     }
 
 }
