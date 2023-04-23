@@ -1013,6 +1013,45 @@ public class LeetCode {
         return dummy.next;
     }
 
+    //无重复字符的最长子串
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0){
+            return 0;
+        }
+        int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int start = 0, end = 0; end < s.length() - 1; end++) {
+            char c = s.charAt(end);
+            if (map.containsKey(c)) {
+                start = Math.max(start, map.get(c) + 1);
+            }
+            map.put(c, end);
+            max = Math.max(max, end - start + 1);
+        }
+        return max;
+    }
+
+    //回文数
+    public static boolean isPalindrome(int x) {
+        if (x < 0 || (x != 0 && x % 10 == 0)) {
+            return false;
+        }
+        int div = 1;
+        while (x / 10 >= div) {
+            div *= 10;
+        }
+        while (x > 0) {
+            int left = x / div;
+            int right = x % 10;
+            if (left != right) {
+                return false;
+            }
+            x = (x % div) / 10;
+            div /= 100;
+        }
+        return true;
+    }
+
     public static List<String> letterCombinations(String digits) {
         Map<Character, String> phoneMap = new HashMap<>();
         phoneMap.put('2', "abc");
