@@ -133,31 +133,44 @@ public class Hot100 {
 
     //合并两个有序链表
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode(0);
-        ListNode cur = dummy;
-        int carry = 0;
-        while (list1 != null || list2 != null) {
-            int sum = carry;
-            if (list1 != null) {
-                sum += list1.val;
-            }
-            if (list2 != null) {
-                sum += list2.val;
-            }
-            cur.next = new ListNode(sum % 10);
-            cur = cur.next;
-            carry = sum / 10;
-            if (list1 != null) {
-                list1 = list1.next;
-            }
-            if (list2 != null) {
-                list2 = list2.next;
-            }
+//        ListNode dummy = new ListNode(0);
+//        ListNode cur = dummy;
+//        int carry = 0;
+//        while (list1 != null || list2 != null) {
+//            int sum = carry;
+//            if (list1 != null) {
+//                sum += list1.val;
+//            }
+//            if (list2 != null) {
+//                sum += list2.val;
+//            }
+//            cur.next = new ListNode(sum % 10);
+//            cur = cur.next;
+//            carry = sum / 10;
+//            if (list1 != null) {
+//                list1 = list1.next;
+//            }
+//            if (list2 != null) {
+//                list2 = list2.next;
+//            }
+//        }
+//        if (carry == 1) {
+//            cur.next = new ListNode(carry);
+//        }
+//        return dummy.next;
+        if (list1 == null) {
+            return list2;
         }
-        if (carry == 1) {
-            cur.next = new ListNode(carry);
+        if (list2 == null) {
+            return list1;
         }
-        return dummy.next;
+        if (list1.val < list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists(list2.next, list1);
+            return list2;
+        }
     }
 
     public static void main(String[] args) {
