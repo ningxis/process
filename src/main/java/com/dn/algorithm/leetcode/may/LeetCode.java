@@ -50,6 +50,46 @@ public class LeetCode {
         return head;
     }
 
+    public void nextPermutation(int[] nums) {
+        //从后向前找第一次出现邻近升序的对儿 A[i] < A[j]
+        int i = nums.length - 2, j = nums.length - 1;
+        while(i >= 0){
+            if(nums[i] < nums[j]){
+                break;
+            }
+            i--; j--;
+        }
+
+        //本身就是最后一个排列（全部降序）， 把整体整个翻转变升序进行返回
+        if(i < 0) {
+            reverse(nums, 0, nums.length-1);
+            return;
+        }
+
+        //从[j, end]从后向前找第一个令A[i] < A[k]的 k值  （不邻近升序对儿 ，也有可能近邻）
+        int k;
+        for(k = nums.length-1; k >= j; k--){
+            if(nums[i] < nums[k]) break;
+        }
+        //得到k
+        //交换i, k
+        swap(nums, i, k);
+        //nums[j,end]是降序 改为升序
+        reverse(nums, j, nums.length-1);
+    }
+    public void reverse(int[] nums, int l, int r){
+        //双指针升序
+        while(l < r){
+            swap(nums, l, r);
+            l++; r--;
+        }
+    }
+    public void swap(int[] nums, int i, int k){
+        int tmp = nums[i];
+        nums[i] = nums[k];
+        nums[k] = tmp;
+    }
+
 
 
 
