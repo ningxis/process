@@ -3,6 +3,7 @@ package com.dn.algorithm.leetcode.may;
 import com.dn.bean.ListNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class LeetCode {
         return head;
     }
 
-    public void nextPermutation(int[] nums) {
+    public static void nextPermutation(int[] nums) {
         //从后向前找第一次出现邻近升序的对儿 A[i] < A[j]
         int i = nums.length - 2, j = nums.length - 1;
         while(i >= 0){
@@ -77,24 +78,57 @@ public class LeetCode {
         //nums[j,end]是降序 改为升序
         reverse(nums, j, nums.length-1);
     }
-    public void reverse(int[] nums, int l, int r){
+    public static void reverse(int[] nums, int l, int r){
         //双指针升序
         while(l < r){
             swap(nums, l, r);
             l++; r--;
         }
     }
-    public void swap(int[] nums, int i, int k){
+    public static void swap(int[] nums, int i, int k){
         int tmp = nums[i];
         nums[i] = nums[k];
         nums[k] = tmp;
     }
 
 
+    //下一个排列
+    public static void nextPermutation1(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        int i = nums.length - 1;
+        int j = 0;
+        while (i > 0) {
+            if (nums[i - 1] < nums[i]) {
+                j = i;
+                break;
+            }
+            i--;
+        }
+        if (j - 1 < 0) {
+            reverse(nums, 0, nums.length - 1);
+            return;
+        }
+        i = nums.length - 1;
+        while (i > 0) {
+            if (nums[i] > nums[j - 1]) {
+                break;
+            }
+            i--;
+        }
+        swap(nums, i, j - 1);
+        reverse(nums, j, nums.length - 1);
+    }
+
+
 
 
     public static void main(String[] args) {
-
+        int[] nums = new int[]{1,2,3,8,5,7,6,4 };
+//        int[] nums = new int[]{1,3,2 };
+        nextPermutation1(nums);
+        System.out.println(Arrays.toString(nums));
     }
 
 
