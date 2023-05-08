@@ -152,9 +152,90 @@ public class LeetCode {
         return -1;
     }
 
+    public static int[] searchRange(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        //寻找左边界(这里寻找第一个 >= target的索引)
+        int leftIndex = searchNum(nums, target);
+        if (leftIndex >= nums.length || nums[leftIndex] != target){
+            return new int[]{-1, -1};
+        }
+        //寻找右边界(这里寻找第一个 >= target+1的索引)
+        int rightIndex = searchNum(nums, target + 1);
+        return new int[]{leftIndex, rightIndex - 1};
+    }
+
+    public static int searchNum(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (target <= nums[mid]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    //查找target目标数据下标
+    private static int findIndex(int[] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        int ans = nums.length;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] > target){
+                ans = mid;
+                right = mid - 1;
+            } else{
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+
+    public static int[] searchRange1(int[] nums, int target) {
+        int left = findIndex(nums, target - 1);
+        int right = findIndex(nums, target) - 1;
+        if(left <= right && nums[left] == target){
+            return new int[]{left, right};
+        }
+        return new int[]{-1, -1};
+
+    }
+
+    /**
+     * 范围查询规律
+     * 初始化:
+     *   int left = 0;
+     *   int right = nums.length - 1;
+     * 循环条件
+     *   left <= right
+     * 右边取值
+     *   right = mid - 1
+     * 左边取值
+     *   left = mid + 1
+     * 查询条件
+     *   >= target值, 则 nums[mid] >= target时, 都减right = mid - 1
+     *   >  target值, 则 nums[mid] >  target时, 都减right = mid - 1
+     *   <= target值, 则 nums[mid] <= target时, 都加left = mid + 1
+     *   <  target值, 则 nums[mid] <  target时, 都加left = mid + 1
+     * 结果
+     *   求大于(含等于), 返回left
+     *   求小于(含等于), 返回right
+     * 核心思想: 要找某个值, 则查找时遇到该值时, 当前指针(例如right指针)要错过它, 让另外一个指针(left指针)跨过他(体现在left <= right中的=号), 则找到了
+     */
+
+
     public static void main(String[] args) {
-        int[] nums = new int[]{3,1};
-        System.out.println(search(nums, 1));
+        int[] nums = new int[]{5,7,7,8,8,10};
+        System.out.println(Arrays.toString(searchRange(nums, 6)));
+        System.out.println(Arrays.toString(searchRange(nums, 8)));
+        System.out.println(Arrays.toString(searchRange(nums, 7)));
     }
 
 
