@@ -20,23 +20,23 @@ public class LeetCode {
         if (n == 0) {
             return list;
         }
-        backTrack( list, "",n, n);
+        backTrack(list, "", n, n);
         return list;
     }
 
     private void backTrack(List<String> list, String str, int left, int right) {
-       if (left == 0 && right == 0) {
-           list.add(str);
-           return;
-       }
-       if (left >= right) {
-           backTrack(list, str + "(" , left - 1, right);
-       } else {
-           backTrack(list, str + ")" , left, right - 1);
-           if (left > 1) {
-               backTrack(list, str + "(" , left - 1, right);
-           }
-       }
+        if (left == 0 && right == 0) {
+            list.add(str);
+            return;
+        }
+        if (left >= right) {
+            backTrack(list, str + "(", left - 1, right);
+        } else {
+            backTrack(list, str + ")", left, right - 1);
+            if (left > 1) {
+                backTrack(list, str + "(", left - 1, right);
+            }
+        }
     }
 
     //两两交换链表中的节点
@@ -54,38 +54,42 @@ public class LeetCode {
     public static void nextPermutation(int[] nums) {
         //从后向前找第一次出现邻近升序的对儿 A[i] < A[j]
         int i = nums.length - 2, j = nums.length - 1;
-        while(i >= 0){
-            if(nums[i] < nums[j]){
+        while (i >= 0) {
+            if (nums[i] < nums[j]) {
                 break;
             }
-            i--; j--;
+            i--;
+            j--;
         }
 
         //本身就是最后一个排列（全部降序）， 把整体整个翻转变升序进行返回
-        if(i < 0) {
-            reverse(nums, 0, nums.length-1);
+        if (i < 0) {
+            reverse(nums, 0, nums.length - 1);
             return;
         }
 
         //从[j, end]从后向前找第一个令A[i] < A[k]的 k值  （不邻近升序对儿 ，也有可能近邻）
         int k;
-        for(k = nums.length-1; k >= j; k--){
-            if(nums[i] < nums[k]) break;
+        for (k = nums.length - 1; k >= j; k--) {
+            if (nums[i] < nums[k]) break;
         }
         //得到k
         //交换i, k
         swap(nums, i, k);
         //nums[j,end]是降序 改为升序
-        reverse(nums, j, nums.length-1);
+        reverse(nums, j, nums.length - 1);
     }
-    public static void reverse(int[] nums, int l, int r){
+
+    public static void reverse(int[] nums, int l, int r) {
         //双指针升序
-        while(l < r){
+        while (l < r) {
             swap(nums, l, r);
-            l++; r--;
+            l++;
+            r--;
         }
     }
-    public static void swap(int[] nums, int i, int k){
+
+    public static void swap(int[] nums, int i, int k) {
         int tmp = nums[i];
         nums[i] = nums[k];
         nums[k] = tmp;
@@ -173,7 +177,7 @@ public class LeetCode {
     public static int[] searchRange(int[] nums, int target) {
         int left = searchNum(nums, target);
         int right = searchNum(nums, target + 1) - 1;
-        if(left <= right && nums[left] == target){
+        if (left <= right && nums[left] == target) {
             return new int[]{left, right};
         }
         return new int[]{-1, -1};
@@ -183,28 +187,29 @@ public class LeetCode {
     /**
      * 范围查询规律
      * 初始化:
-     *   int left = 0;
-     *   int right = nums.length - 1;
+     * int left = 0;
+     * int right = nums.length - 1;
      * 循环条件
-     *   left <= right
+     * left <= right
      * 右边取值
-     *   right = mid - 1
+     * right = mid - 1
      * 左边取值
-     *   left = mid + 1
+     * left = mid + 1
      * 查询条件
-     *   >= target值, 则 nums[mid] >= target时, 都减right = mid - 1
-     *   >  target值, 则 nums[mid] >  target时, 都减right = mid - 1
-     *   <= target值, 则 nums[mid] <= target时, 都加left = mid + 1
-     *   <  target值, 则 nums[mid] <  target时, 都加left = mid + 1
+     * >= target值, 则 nums[mid] >= target时, 都减right = mid - 1
+     * >  target值, 则 nums[mid] >  target时, 都减right = mid - 1
+     * <= target值, 则 nums[mid] <= target时, 都加left = mid + 1
+     * <  target值, 则 nums[mid] <  target时, 都加left = mid + 1
      * 结果
-     *   求大于(含等于), 返回left
-     *   求小于(含等于), 返回right
+     * 求大于(含等于), 返回left
+     * 求小于(含等于), 返回right
      * 核心思想: 要找某个值, 则查找时遇到该值时, 当前指针(例如right指针)要错过它, 让另外一个指针(left指针)跨过他(体现在left <= right中的=号), 则找到了
      * ----我的理解是  当前存在的mid指针,left超过这个指针就是大于等于了,right超过这个指针就是小于等于了
      */
 
 //组合总和
     static List<List<Integer>> res = new ArrayList<>();
+
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         if (candidates == null || candidates.length == 0) {
             return res;
@@ -215,7 +220,7 @@ public class LeetCode {
         return res;
     }
 
-// https://leetcode.cn/problems/combination-sum/solutions/14697/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/
+    // https://leetcode.cn/problems/combination-sum/solutions/14697/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/
     private static void backTrack(int[] candidates, int target, int sum, List<Integer> path, int start) {
         if (sum == target) {
             res.add(new ArrayList<>(path));
@@ -238,9 +243,54 @@ public class LeetCode {
         }
     }
 
+    //全排列
+    // https://leetcode.cn/problems/permutations/solutions/9914/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liweiw/
+    public static List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        int len = nums.length;
+        boolean[] used = new boolean[len];
+        permuteBackTrack(nums, 0, new ArrayList<>(), used);
+        return res;
+
+    }
+
+
+    private static void permuteBackTrack(int[] nums, int index, List<Integer> list, boolean[] used) {
+/**
+  * 变量 path 所指向的列表 在深度优先遍历的过程中只有一份 ，深度优先遍历完成以后，回到了根结点，成为空列表。
+  *
+  * 在 Java 中，参数传递是 值传递，对象类型变量在传参的过程中，复制的是变量的地址。这些地址被添加到 res 变量，但实际上指向的是同一块内存地址，
+ *  因此我们会看到 6个空的列表对象。解决的方法很简单，在 res.add(path); 这里做一次拷贝即可。
+  */
+        if (index == nums.length) {
+//            res.add(list);
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println(i);
+            if (!used[i]) {
+                list.add(nums[i]);
+                used[i] = true;
+                System.out.println("  递归之前 => " + list);
+                System.out.println(Arrays.toString(used));
+                permuteBackTrack(nums, index + 1, list, used);
+                used[i] = false;
+                list.remove(list.size() - 1);
+                System.out.println("  递归之hou => " + list);
+                System.out.println(Arrays.toString(used));
+
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
-        int[] nums = new int[]{2,3,5};
-        System.out.println(combinationSum(nums, 8));
+        int[] nums = new int[]{1,2,3};
+        permute(nums);
+        System.out.println(res);
     }
 
 
