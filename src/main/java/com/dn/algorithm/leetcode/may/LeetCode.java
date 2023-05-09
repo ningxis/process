@@ -169,6 +169,7 @@ public class LeetCode {
     }
 
 
+    //在排序数组中查找元素的第一个和最后一个位置  二分查找法
     public static int[] searchRange(int[] nums, int target) {
         int left = searchNum(nums, target);
         int right = searchNum(nums, target + 1) - 1;
@@ -202,12 +203,44 @@ public class LeetCode {
      * ----我的理解是  当前存在的mid指针,left超过这个指针就是大于等于了,right超过这个指针就是小于等于了
      */
 
+//组合总和
+    static List<List<Integer>> res = new ArrayList<>();
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        if (candidates == null || candidates.length == 0) {
+            return res;
+        }
+        // 排序是剪枝的前提
+        Arrays.sort(candidates);
+        backTrack(candidates, target, 0, new ArrayList<>(), 0);
+        return res;
+    }
+
+// https://leetcode.cn/problems/combination-sum/solutions/14697/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/
+    private static void backTrack(int[] candidates, int target, int sum, List<Integer> path, int start) {
+        if (sum == target) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        // 重点理解这里从 begin 开始搜索的语意
+        for (int i = start; i < candidates.length; i++) {
+            int num = candidates[i];
+            int temp = sum + num;
+            // 重点理解这里剪枝，前提是候选数组已经有序，
+            if (target >= temp) {
+                path.add(num);
+                // 注意：由于每一个元素可以重复使用，下一轮搜索的起点依然是 i，这里非常容易弄错
+                backTrack(candidates, target, temp, path, i);
+                // 状态重置 移除无效元素
+                path.remove(path.size() - 1);
+            } else {
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1};
-        System.out.println(Arrays.toString(searchRange(nums, 1)));
-        System.out.println(Arrays.toString(searchRange(nums, 8)));
-        System.out.println(Arrays.toString(searchRange(nums, 7)));
+        int[] nums = new int[]{2,3,5};
+        System.out.println(combinationSum(nums, 8));
     }
 
 
