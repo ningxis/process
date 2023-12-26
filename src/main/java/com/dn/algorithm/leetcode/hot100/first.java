@@ -1,7 +1,11 @@
 package com.dn.algorithm.leetcode.hot100;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author dingning
@@ -11,7 +15,7 @@ public class first {
 
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
+        test01();
     }
 
 
@@ -106,4 +110,31 @@ public class first {
     }
 
 
+    //Timer类可以用于执行重复性任务或者延迟执行任务。
+    public static void test01(){
+        Timer timer = new Timer();
+        // 获取当前系统时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 创建一个日期时间格式化对象
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // 格式化当前系统时间
+        String formattedDateTime = now.format(formatter);
+
+        // 输出格式化后的时间
+        System.out.println("当前系统格式化后的时间: " + formattedDateTime);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // 在30秒后执行的逻辑处理
+                System.out.println("---------------------------");
+                System.out.println("当前系统格式化后的时间-------: " + LocalDateTime.now().format(formatter));
+                //延迟执行任务,完成后释放资源，避免内存泄漏
+                timer.cancel();
+                timer.purge();
+            }
+        }, 3000); // 3秒后执行
+
+    }
 }
