@@ -13,6 +13,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author dingning
@@ -22,7 +24,7 @@ public class DataService {
 
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        test03();
+        test05();
 
     }
 
@@ -446,6 +448,7 @@ public class DataService {
         };
     }
 
+    // synchronized关键字实现多线程循环打印
     private static final Object lock = new Object();
     private static volatile int status = 1;
 
@@ -504,4 +507,139 @@ public class DataService {
 
     }
 
+    //ReentrantLock 实现多线程循环打印
+    private static final ReentrantLock reentrantLock = new ReentrantLock();
+
+    private static int state = 0;
+
+    private static final Condition conditionA = reentrantLock.newCondition();
+    private static final Condition conditionB = reentrantLock.newCondition();
+    private static final Condition conditionC = reentrantLock.newCondition();
+
+    public static void test04() {
+        Thread threadA = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    reentrantLock.lock();
+                    try {
+                        while (state % 3 != 0) {
+                            conditionA.await();
+                        }
+                        System.out.println("A");
+                        state++;
+                        conditionB.signal();
+                    } finally {
+                        reentrantLock.unlock();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadB = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    reentrantLock.lock();
+                    try {
+                        while (state % 3 != 1) {
+                            conditionB.await();
+                        }
+                        System.out.println("B");
+                        state++;
+                        conditionC.signal();
+                    } finally {
+                        reentrantLock.unlock();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadC = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    reentrantLock.lock();
+                    try {
+                        while (state % 3 != 2) {
+                            conditionC.await();
+                        }
+                        System.out.println("C");
+                        state++;
+                        conditionA.signal();
+                    } finally {
+                        reentrantLock.unlock();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        threadA.start();
+        threadB.start();
+        threadC.start();
+    }
+
+
+    public static class MyPrinter implements Runnable {
+        private final ReentrantLock lock;
+        private final Condition thisCondition;
+        private final Condition nextCondition;
+        private static int PRINT_COUNT = 0;
+        private final String str;
+
+        public MyPrinter(ReentrantLock lock, Condition thisCondition, Condition nextCondition, String str) {
+            this.lock = lock;
+            this.thisCondition = thisCondition;
+            this.nextCondition = nextCondition;
+            this.str = str;
+        }
+
+        @Override
+        public void run() {
+            // 获取打印锁 进入临界区
+            lock.lock();
+            try {
+                // 连续打印PRINT_COUNT次
+                for (int i = 0; i < PRINT_COUNT; i++) {
+                    //打印字符
+                    System.out.println(str);
+                    // 使用nextCondition唤醒下一个线程
+                    // 因为只有一个线程在等待，所以signal或者signalAll都可以
+                    nextCondition.signal();
+                    // 不是最后一次则通过thisCondition等待被唤醒
+                    // 必须要加判断，不然虽然能够打印10次，但10次后就会直接死锁
+                    if (i < PRINT_COUNT - 1) {
+                        try {
+                            // 本线程让出锁并等待唤醒
+                            thisCondition.await();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static void test05() {
+        ReentrantLock lock = new ReentrantLock();
+        Condition A = lock.newCondition();
+        Condition B = lock.newCondition();
+        Condition C = lock.newCondition();
+        MyPrinter.PRINT_COUNT = 100;
+        Thread printerA = new Thread(new MyPrinter(lock, A, B, "A"));
+        Thread printerB = new Thread(new MyPrinter(lock, B, C, "B"));
+        Thread printerC = new Thread(new MyPrinter(lock, C, A, "C"));
+        printerA.start();
+        printerB.start();
+        //此处线程启动必须保证有序，不然可能出现ACB的情况
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        printerC.start();
+    }
 }
