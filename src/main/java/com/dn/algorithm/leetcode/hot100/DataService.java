@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * @author dingning
@@ -17,8 +21,8 @@ import java.text.SimpleDateFormat;
 public class DataService {
 
 
-    public static void main(String[] args) throws IOException {
-        dataConvert();
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+        test03();
 
     }
 
@@ -393,4 +397,111 @@ public class DataService {
             e.printStackTrace();
         }
     }
+
+
+    //只能单线程情况下保证有序
+    public static void test01() {
+        Thread threadA = new Thread(() -> {
+            System.out.println("AAAA");
+        });
+        Thread threadB = new Thread(() -> {
+            try {
+                threadA.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("BBBB");
+        });
+        Thread threadC = new Thread(() -> {
+            try {
+                threadB.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("CCCC");
+        });
+        threadC.start();
+        threadB.start();
+        threadA.start();
+    }
+
+    //线程池循环打印abc
+    public static void test02() throws ExecutionException, InterruptedException {
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(3);
+        int x = 0;
+        while (x < 100) {
+            scheduledExecutorService.submit(getTask("A")).get();
+            scheduledExecutorService.submit(getTask("B")).get();
+            scheduledExecutorService.submit(getTask("C")).get();
+            x++;
+        }
+        scheduledExecutorService.shutdown();
+
+    }
+
+    private static Callable<String> getTask(String task) {
+        return () -> {
+            System.out.println(task);
+            return task;
+        };
+    }
+
+    private static final Object lock = new Object();
+    private static volatile int status = 1;
+
+    public static void test03() {
+        Thread threadA = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    synchronized (lock) {
+                        while (status != 1) {
+                            lock.wait();
+                        }
+                        System.out.println("A");
+                        status = 2;
+                        lock.notifyAll();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadB = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    synchronized (lock) {
+                        while (status != 2) {
+                            lock.wait();
+                        }
+                        System.out.println("B");
+                        status = 3;
+                        lock.notifyAll();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadC = new Thread(() -> {
+            try {
+                for (int i = 0; i < 100; i++) {
+                    synchronized (lock) {
+                        while (status != 3) {
+                            lock.wait();
+                        }
+                        System.out.println("C");
+                        status = 1;
+                        lock.notifyAll();
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        threadA.start();
+        threadB.start();
+        threadC.start();
+
+    }
+
 }
