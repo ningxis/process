@@ -1,11 +1,10 @@
 package com.dn.algorithm.leetcode.hot100;
 
+import org.junit.Test;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * @author dingning
@@ -15,7 +14,7 @@ public class first {
 
 
     public static void main(String[] args) {
-        test01();
+        System.out.println(Arrays.toString(lengthOfLIS(new int[]{1, 3, -1, 5, 7, 369, 10, 6, -1, 2, 7, 8, 9, 12, 3, 8})));
     }
 
 
@@ -136,5 +135,108 @@ public class first {
             }
         }, 3000); // 3秒后执行
 
+    }
+
+    // LRUCache
+    @Test
+    public void test02() {
+
+    }
+
+    // 根据数据的使用顺序来淘汰最近最少使用的数据。当缓存满时，新的数据需要放入缓存时，就需要淘汰最近最少使用的数据。
+    public class LRUCache {
+        private final LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+        private final int capacity = 10;
+
+        public void put(Integer key, Integer value) {
+            if (!map.containsKey(key)) {
+                map.remove(key);
+            }
+            if (map.size() == capacity) {
+                Iterator<Integer> iterator = map.keySet().iterator();
+                map.remove(iterator.next());
+            }
+            map.put(key, value);
+        }
+
+
+        public int get(Integer key) {
+            if (!map.containsKey(key)) {
+                return -1;
+            }
+            int res = map.get(key);
+            map.remove(key);
+            map.put(key, res);
+            return res;
+        }
+    }
+
+
+    @Test
+    public void test04() {
+        int[] ints = new int[]{1, 4, 2, 3, 5, 9, 6, 8, 7, 10};
+        int length = ints.length;
+        quickSort(ints, 0, length - 1);
+        System.out.println(Arrays.toString(ints));
+    }
+
+    /* 常规快排 */
+    public void quickSort(int[] arr, int start, int end) {
+        if (start > end) {
+            return;
+        }
+        int mid = partition(arr, start, end);
+        quickSort(arr, start, mid - 1);
+        quickSort(arr, mid + 1, end);
+    }
+
+    public static int partition(int[] arr, int start, int end) {
+        if (start > end) {
+            return -1;
+        }
+        if (start == end) {
+            return start;
+        }
+        int index = start;
+        int less = start - 1;
+        while (index < end) {
+            if (arr[index] <= arr[end]) {
+                swap(arr, index, ++less);
+            }
+            index++;
+        }
+        swap(arr, ++less, end);
+        return less;
+    }
+
+    public static void swap(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+    }
+
+    public static int[] lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{};
+        }
+        int max = 0;
+        int count = 0;
+        int end = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                count++;
+                if (count >= max) {
+                    max = count;
+                    end = i;
+                }
+            } else {
+                count = 1;
+            }
+        }
+        int[] res = new int[max];
+        for (int i = 0; i < max; i++) {
+            res[i] = nums[end - max + 1 + i];
+        }
+        return res;
     }
 }
