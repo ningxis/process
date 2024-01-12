@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * @author dingning
@@ -238,5 +239,22 @@ public class first {
             res[i] = nums[end - max + 1 + i];
         }
         return res;
+    }
+
+    //飞书面试题,说出输出结果
+    public static void test() throws ExecutionException, InterruptedException {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 10, 500, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(10));
+        FutureTask futureTask1 = new FutureTask(()->{
+            System.out.println("内部线程池");
+            FutureTask futureTask2 = new FutureTask<>(()->{
+                System.out.println("内存线程池执行完成");
+                return null;
+            });
+            executor.execute(futureTask2);
+            return futureTask2.get();
+        });
+        executor.execute(futureTask1);
+        futureTask1.get();
+        System.out.println("外部线程池执行完成");
     }
 }
