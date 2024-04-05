@@ -1,6 +1,9 @@
 package com.dn.algorithm.leetcode;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author dingning
@@ -8,13 +11,67 @@ import java.util.*;
  **/
 public class April {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        int[] arrays = new int[]{50,40,70,90,80,10,20,60,12,12,1,1,0,0,2,3,4,5,3,2,1,0,4,23,7};
-        int[] arrays = new int[]{50,40,70,90,80,10,20,60};
-        System.out.println("排序前：" + Arrays.toString(arrays));
-        quickSort3( 0, arrays.length - 1,arrays);
-        System.out.println("排序后：" + Arrays.toString(arrays));
+//        int[] arrays = new int[]{50,40,70,90,80,10,20,60};
+//        System.out.println("排序前：" + Arrays.toString(arrays));
+//        quickSort3( 0, arrays.length - 1,arrays);
+//        System.out.println("排序后：" + Arrays.toString(arrays));
+//        completableFuture();
+        queue();
     }
+
+    private static void queue() throws InterruptedException {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(){{add(1);}};
+        ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(50, true, arrayList);
+        queue.offer(1);//插入头部
+        queue.offer(1);//插入头部
+        queue.offer(1);//插入头部
+        queue.offer(1);//插入头部
+        queue.put(3);//插入队列尾部，队列满则阻塞等待
+        queue.put(3);//插入队列尾部，队列满则阻塞等待
+        queue.put(3);//插入队列尾部，队列满则阻塞等待
+        queue.put(4);//插入队列尾部，队列满则阻塞等待
+        queue.put(4);//插入队列尾部，队列满则阻塞等待
+        boolean add = queue.add(5);//插入头部,抛异常
+//        boolean add = queue.add(5);//插入头部,抛异常
+        queue.offer(2);//插入头部
+        queue.offer(2);//插入头部
+        queue.offer(2);//插入头部
+        queue.offer(2);//插入头部
+
+        queue.forEach(System.out::println);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++");
+//        Integer take1 = queue.remove();
+//        Integer poll = queue.poll(1, TimeUnit.SECONDS);
+//        Integer peek = queue.peek();//只查询队头元素，不删除
+//        Integer take = queue.take();//队列中没有元素就会阻塞等待
+        queue.forEach((a)->{
+            try {
+                System.out.println(queue.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+//        System.out.println(take + ":" + add + ":" + poll + ":" + peek + ":");
+    }
+
+    private static void completableFuture() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> {
+            System.out.println("341343141");
+            return "5678";
+        });
+        cf1.thenAccept((result)->{
+
+        });
+        CompletableFuture<Object> cf2 = cf1.thenApply((result) -> result + "7777777777777777777");
+        CompletableFuture<Void> cf3 = cf1.thenAccept((result) -> {
+            System.out.println("cf1" + result);
+        });
+        System.out.println(cf2.get());
+        System.out.println(cf3.get());
+    }
+
 
     private static void quickSort2(int[] arrays, int left, int right) {
         if (left >= right) {
