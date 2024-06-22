@@ -1,9 +1,11 @@
 package com.dn.algorithm.leetcode;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author dingning
@@ -12,13 +14,79 @@ import java.util.concurrent.ExecutionException;
 public class April {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        int[] arrays = new int[]{50,40,70,90,80,10,20,60,12,12,1,1,0,0,2,3,4,5,3,2,1,0,4,23,7};
-//        int[] arrays = new int[]{50,40,70,90,80,10,20,60};
-//        System.out.println("排序前：" + Arrays.toString(arrays));
-//        quickSort3( 0, arrays.length - 1,arrays);
-//        System.out.println("排序后：" + Arrays.toString(arrays));
-//        completableFuture();
-        queue();
+
+
+    }
+
+    public static void testCoding() {
+        List<String>    list = new ArrayList<>();
+        
+    }
+
+
+    public static void deleteFiles() {
+        String url = "D:\\install\\apache-maven-3.9.6\\repository";
+        File file=new File(url);  //  C:\Users\WX\Desktop\test是仓库所在文件夹
+        delete(file);
+    }
+
+
+    public static void delete(File f)
+    {
+        //数组指向文件夹中的文件和文件夹
+        File[] fi=f.listFiles();
+        //遍历文件和文件夹
+        for(File file:fi) {
+            //如果是文件夹，递归查找
+            if (file.isDirectory())
+                delete(file);
+            else if (file.isFile()) {
+                //是文件的话，把文件名放到一个字符串中
+                String filename = file.getName();
+                //如果是“repositories”后缀文件，返回一个boolean型的值
+                if (filename.endsWith("repositories") || filename.endsWith("lastUpdated")) {
+                    System.out.println("成功删除：：" + file.getName());
+                    file.delete();
+                }
+            }
+        }
+    }
+
+    private static void lock(){
+        int sign;
+        ReentrantLock lock = new ReentrantLock();
+        lock.lock();
+        lock.unlock();
+    }
+
+    public static void quickSort4(int left, int right, int[] a) {
+        if (left >= right) {
+            return;
+        }
+        int privot = partition3(left, right, a);
+        quickSort4(left, privot - 1, a);
+        quickSort4(privot + 1, right, a);
+    }
+
+    public static int partition3 (int left, int right, int[] a) {
+        int i = left;
+        int j = right;
+        int temp = a[i];
+        if (i < j) {
+            while (i < j) {
+                while(i < j && a[j] >= temp) {
+                    j--;
+                }
+                while(i < j && a[i] <= temp) {
+                    i++;
+                }
+                if (i < j) {
+                    swap(i, j, a);
+                }
+            }
+        }
+        swap(left, i, a);
+        return i;
     }
 
     private static void queue() throws InterruptedException {
